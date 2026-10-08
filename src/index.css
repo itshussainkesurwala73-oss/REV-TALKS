@@ -82,4 +82,138 @@ html.dark,
   );
 }
 
+/* ========================================================
+   CAR DRIFT & RIDE LOADING ANIMATIONS
+   ======================================================== */
+.car-chassis-anim {
+  animation: carVibration 0.35s infinite ease-in-out alternate, carDriftSway 2.4s infinite ease-in-out;
+}
+
+@keyframes carVibration {
+  0% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-1.2px) rotate(-0.5deg); }
+  100% { transform: translateY(0.8px) rotate(-1.5deg); }
+}
+
+@keyframes carDriftSway {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg) translateX(-2px); }
+  50% { transform: translateY(-0.5px) rotate(1deg) translateX(4px); }
+}
+
+.car-wheel-spin {
+  transform-origin: 0 0;
+  animation: wheelSpin 0.28s infinite linear;
+}
+
+@keyframes wheelSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.car-exhaust-flame {
+  animation: flameFlicker 0.15s infinite alternate;
+}
+
+@keyframes flameFlicker {
+  0% { transform: scaleX(0.7) scaleY(0.8); opacity: 0.6; }
+  100% { transform: scaleX(1.3) scaleY(1.2); opacity: 1; }
+}
+
+.car-headlight-cone {
+  animation: lightShimmer 0.4s infinite ease-in-out alternate;
+}
+
+@keyframes lightShimmer {
+  0% { opacity: 0.7; transform: scaleY(0.9); }
+  100% { opacity: 1; transform: scaleY(1.1); }
+}
+
+.car-speed-wind {
+  animation: speedWind 0.8s infinite linear;
+}
+
+.car-speed-wind-2 {
+  animation: speedWind 0.55s infinite linear 0.2s;
+}
+
+@keyframes speedWind {
+  0% { transform: translateX(200px); opacity: 0; }
+  30% { opacity: 0.8; }
+  70% { opacity: 0.8; }
+  100% { transform: translateX(-150px); opacity: 0; }
+}
+
+.car-drift-smoke {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, rgba(220, 220, 225, 0.75) 0%, rgba(200, 200, 210, 0.3) 60%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.car-drift-smoke.smoke-1 {
+  animation: smokePuff 0.6s infinite ease-out;
+}
+.car-drift-smoke.smoke-2 {
+  animation: smokePuff 0.6s infinite ease-out 0.2s;
+}
+.car-drift-smoke.smoke-3 {
+  animation: smokePuff 0.6s infinite ease-out 0.4s;
+}
+
+@keyframes smokePuff {
+  0% {
+    transform: translate(0, 0) scale(0.3);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-16px, -6px) scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-34px, -12px) scale(1.8);
+    opacity: 0;
+  }
+}
+
+.racing-kerb-anim {
+  background: repeating-linear-gradient(
+    -45deg,
+    #DC2626,
+    #DC2626 10px,
+    #FAFAFA 10px,
+    #FAFAFA 20px
+  );
+  background-size: 20px 100%;
+  animation: kerbSlide 0.25s infinite linear;
+}
+
+@keyframes kerbSlide {
+  0% { background-position: 0 0; }
+  100% { background-position: -20px 0; }
+}
+
+.road-stripes-anim {
+  animation: roadStripesSlide 0.35s infinite linear;
+}
+
+@keyframes roadStripesSlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-44px); }
+}
+
+.tach-sweep {
+  animation: tachSweepAnim 1.4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes tachSweepAnim {
+  0% { width: 12%; }
+  45% { width: 78%; }
+  70% { width: 95%; }
+  85% { width: 100%; }
+  100% { width: 12%; }
+}
+
+
 
