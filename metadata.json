@@ -1,0 +1,6 @@
+{
+  "name": "Apex Archive — The Automotive Monograph",
+  "description": "An independent editorial journal exploring iconic automotive engineering, legendary motorcycles, motorsport heritage, and the mechanical arts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
