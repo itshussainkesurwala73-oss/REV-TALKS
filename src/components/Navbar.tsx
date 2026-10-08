@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sun, Moon, Bookmark, Search, Menu, X, ArrowUpRight, Gauge, Zap, Volume2, VolumeX, Flame } from 'lucide-react';
+import { Sun, Moon, Bookmark, Search, Menu, X, ArrowUpRight, Gauge, Zap, Volume2, Flame } from 'lucide-react';
 import { Category, VehicleType } from '../types/article';
 import { engineAudio } from '../utils/engineAudio';
 
@@ -49,14 +49,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         setEngineState('off');
       });
     } else {
-      // Re-blip or stop
       engineAudio.stop();
       setEngineState('off');
     }
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-zinc-950/90 dark:bg-black/90 backdrop-blur-xl transition-colors duration-200">
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-200 dark:border-zinc-800/80 bg-white/90 dark:bg-black/90 backdrop-blur-xl transition-colors duration-200">
       {/* Top micro racing stripe */}
       <div className="h-0.5 w-full bg-gradient-to-r from-red-600 via-rose-500 to-amber-500" />
 
@@ -67,36 +66,36 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-5">
             <button
               onClick={onNavigateHome}
-              className="text-left group flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded"
+              className="text-left group flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded cursor-pointer"
               aria-label="Rev Talks Home"
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-rose-700 flex items-center justify-center text-white shadow-lg shadow-red-600/30 group-hover:scale-105 transition-transform">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-rose-700 flex items-center justify-center text-white shadow-md shadow-red-600/30 group-hover:scale-105 transition-transform">
                 <Gauge className="w-4 h-4" />
               </div>
               <div className="flex flex-col">
-                <span className="font-display text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-1">
-                  REV <span className="text-red-500 font-extrabold">TALKS</span>
+                <span className="font-display text-xl sm:text-2xl font-black tracking-tight text-zinc-950 dark:text-white flex items-center gap-1">
+                  REV <span className="text-red-600 dark:text-red-500 font-extrabold">TALKS</span>
                 </span>
               </div>
             </button>
-            <span className="hidden xl:inline text-[11px] font-mono tracking-widest uppercase text-zinc-400 border-l border-zinc-800 pl-4 flex items-center gap-1.5">
+            <span className="hidden xl:inline text-[11px] font-mono tracking-widest uppercase text-zinc-500 dark:text-zinc-400 border-l border-zinc-200 dark:border-zinc-800 pl-4 flex items-center gap-1.5">
               <Zap className="w-3 h-3 text-red-500 fill-current" />
               10 High-Octane Machines
             </span>
           </div>
 
           {/* Zone 2: Navigation Links */}
-          <nav className="hidden md:flex items-center gap-6 text-xs font-mono uppercase tracking-wider text-zinc-300">
+          <nav className="hidden md:flex items-center gap-6 text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-300">
             <button
               onClick={() => {
                 onSelectVehicleType('All');
                 onSelectCategory('All');
                 onNavigateHome();
               }}
-              className={`hover:text-white transition-all py-1 border-b-2 ${
+              className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeCategory === 'All' && activeVehicleType === 'All'
-                  ? 'border-red-500 text-white font-bold'
-                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                  ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
+                  : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
               }`}
             >
               All Treats
@@ -107,10 +106,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onSelectVehicleType('Car');
                 onNavigateHome();
               }}
-              className={`hover:text-white transition-all py-1 border-b-2 ${
+              className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeVehicleType === 'Car'
-                  ? 'border-red-500 text-white font-bold'
-                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                  ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
+                  : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
               }`}
             >
               Supercars
@@ -121,10 +120,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onSelectVehicleType('Motorcycle');
                 onNavigateHome();
               }}
-              className={`hover:text-white transition-all py-1 border-b-2 ${
+              className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeVehicleType === 'Motorcycle'
-                  ? 'border-red-500 text-white font-bold'
-                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                  ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
+                  : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
               }`}
             >
               Superbikes
@@ -135,10 +134,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onSelectCategory('Motorsport');
                 onNavigateHome();
               }}
-              className={`hover:text-white transition-all py-1 border-b-2 ${
+              className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeCategory === 'Motorsport'
-                  ? 'border-red-500 text-white font-bold'
-                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                  ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
+                  : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
               }`}
             >
               Motorsport
@@ -149,10 +148,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onSelectCategory('Engineering');
                 onNavigateHome();
               }}
-              className={`hover:text-white transition-all py-1 border-b-2 ${
+              className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeCategory === 'Engineering'
-                  ? 'border-red-500 text-white font-bold'
-                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                  ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
+                  : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
               }`}
             >
               Engineering
@@ -160,66 +159,63 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={onOpenContact}
-              className={`hover:text-white transition-all py-1 border-b-2 ${
+              className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'contact'
-                  ? 'border-red-500 text-white font-bold'
-                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                  ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
+                  : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
               }`}
             >
               Contact
             </button>
           </nav>
 
-          {/* Zone 3: Actions + Engine Start Audio Toggle */}
+          {/* Zone 3: Actions + Mustang V8 Start Audio Toggle */}
           <div className="flex items-center gap-2 sm:gap-2.5">
             
-            {/* Subtle 'MUSTANG 5.0 V8' Audio Button */}
+            {/* Mustang 5.0 V8 Audio Button */}
             <button
               type="button"
               onClick={handleEngineStart}
               className={`relative group inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
                 engineState !== 'off'
-                  ? 'bg-red-950/80 border-red-500 text-white shadow-lg shadow-red-600/40 ring-1 ring-red-500/50'
-                  : 'bg-zinc-900/90 border-zinc-800 text-zinc-300 hover:text-white hover:border-red-500/60 hover:bg-zinc-800'
+                  ? 'bg-red-50 dark:bg-red-950/80 border-red-500 text-red-900 dark:text-white shadow-md shadow-red-600/30 ring-1 ring-red-500/50'
+                  : 'bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:border-red-500/60 hover:bg-zinc-200 dark:hover:bg-zinc-800'
               }`}
               aria-label={engineState !== 'off' ? 'Stop Mustang V8 exhaust audio' : 'Start Ford Mustang 5.0 V8 exhaust audio'}
               title={engineState !== 'off' ? 'Mustang 5.0 V8 Active // Click to cut' : 'Ford Mustang 5.0L V8 Exhaust // Push to Start'}
             >
-              {/* Subtle Pulsing Red LED Indicator Dot */}
               <span className="relative flex h-2 w-2">
                 {engineState !== 'off' && (
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                 )}
                 <span
                   className={`relative inline-flex rounded-full h-2 w-2 ${
-                    engineState !== 'off' ? 'bg-red-500' : 'bg-zinc-600 group-hover:bg-red-500/80 transition-colors'
+                    engineState !== 'off' ? 'bg-red-500' : 'bg-zinc-400 dark:bg-zinc-600 group-hover:bg-red-500/80 transition-colors'
                   }`}
                 />
               </span>
 
-              {/* Status & Label */}
               <span className="hidden sm:inline font-bold">
                 {engineState === 'starting' ? (
-                  <span className="text-amber-400">CRANK 5.0L...</span>
+                  <span className="text-amber-600 dark:text-amber-400">CRANK 5.0L...</span>
                 ) : engineState === 'revving' ? (
-                  <span className="text-red-400 animate-pulse">V8 ROAR 💥</span>
+                  <span className="text-red-600 dark:text-red-400 animate-pulse">V8 ROAR 💥</span>
                 ) : (
                   <span>MUSTANG 5.0 V8</span>
                 )}
               </span>
 
-              {/* Icon */}
               {engineState !== 'off' ? (
                 <Flame className="w-3.5 h-3.5 text-red-500 animate-bounce" />
               ) : (
-                <Volume2 className="w-3.5 h-3.5 text-zinc-400 group-hover:text-red-400 transition-colors" />
+                <Volume2 className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400 group-hover:text-red-500 transition-colors" />
               )}
             </button>
 
             {/* Search Trigger */}
             <button
               onClick={onOpenSearch}
-              className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-900 rounded-lg border border-zinc-800/60 hover:border-zinc-700 transition-colors"
+              className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800/60 transition-colors cursor-pointer"
               aria-label="Search articles"
               title="Search articles (Cmd+K)"
             >
@@ -229,7 +225,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Bookmarks Drawer Trigger */}
             <button
               onClick={onOpenBookmarks}
-              className="relative p-2 text-zinc-400 hover:text-white hover:bg-zinc-900 rounded-lg border border-zinc-800/60 hover:border-zinc-700 transition-colors"
+              className="relative p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800/60 transition-colors cursor-pointer"
               aria-label={`View reading list (${savedCount} saved)`}
               title="Reading List"
             >
@@ -241,20 +237,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Dark Mode Toggle */}
+            {/* Dark / Light Mode Toggle */}
             <button
               onClick={onToggleDarkMode}
-              className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-900 rounded-lg border border-zinc-800/60 hover:border-zinc-700 transition-colors"
+              className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800/60 transition-colors cursor-pointer"
               aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
               title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-300" />}
+              {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-700" />}
             </button>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-zinc-400 hover:text-white rounded-lg border border-zinc-800 transition-colors"
+              className="md:hidden p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white rounded-lg border border-zinc-200 dark:border-zinc-800 transition-colors"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -265,23 +261,23 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-zinc-800 bg-zinc-950 px-4 pt-3 pb-6 space-y-2 animate-fadeIn font-mono text-xs uppercase">
+        <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 pt-3 pb-6 space-y-2 animate-fadeIn font-mono text-xs uppercase">
           
-          {/* Mobile Engine Start Trigger */}
-          <div className="pb-2 border-b border-zinc-800">
+          {/* Mobile Mustang Start Trigger */}
+          <div className="pb-2 border-b border-zinc-200 dark:border-zinc-800">
             <button
               onClick={handleEngineStart}
               className={`w-full py-2.5 px-3 rounded-lg flex items-center justify-between border transition-all ${
                 engineState !== 'off'
-                  ? 'bg-red-950/80 border-red-500 text-white'
-                  : 'bg-zinc-900 border-zinc-800 text-zinc-300'
+                  ? 'bg-red-50 dark:bg-red-950/80 border-red-500 text-red-900 dark:text-white'
+                  : 'bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'
               }`}
             >
               <span className="flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${engineState !== 'off' ? 'bg-red-500 animate-ping' : 'bg-zinc-500'}`} />
+                <span className={`w-2 h-2 rounded-full ${engineState !== 'off' ? 'bg-red-500 animate-ping' : 'bg-zinc-400 dark:bg-zinc-500'}`} />
                 <span>Mustang 5.0L V8 Exhaust</span>
               </span>
-              <span className="text-red-400 font-bold">
+              <span className="text-red-600 dark:text-red-400 font-bold">
                 {engineState !== 'off' ? 'V8 ROAR 💥' : 'START V8'}
               </span>
             </button>
@@ -293,7 +289,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onSelectCategory('All');
               onNavigateHome();
             })}
-            className="w-full text-left py-2.5 px-3 text-zinc-200 rounded-lg hover:bg-zinc-900 hover:text-red-400 transition-colors"
+            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
           >
             All 10 Dispatches
           </button>
@@ -302,7 +298,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onSelectVehicleType('Car');
               onNavigateHome();
             })}
-            className="w-full text-left py-2.5 px-3 text-zinc-200 rounded-lg hover:bg-zinc-900 hover:text-red-400 transition-colors"
+            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
           >
             Supercars & Hypercars
           </button>
@@ -311,7 +307,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onSelectVehicleType('Motorcycle');
               onNavigateHome();
             })}
-            className="w-full text-left py-2.5 px-3 text-zinc-200 rounded-lg hover:bg-zinc-900 hover:text-red-400 transition-colors"
+            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
           >
             Motorcycles & Superbikes
           </button>
@@ -320,7 +316,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onSelectCategory('Motorsport');
               onNavigateHome();
             })}
-            className="w-full text-left py-2.5 px-3 text-zinc-200 rounded-lg hover:bg-zinc-900 hover:text-red-400 transition-colors"
+            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
           >
             Motorsport & Heritage
           </button>
@@ -329,13 +325,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               onSelectCategory('Engineering');
               onNavigateHome();
             })}
-            className="w-full text-left py-2.5 px-3 text-zinc-200 rounded-lg hover:bg-zinc-900 hover:text-red-400 transition-colors"
+            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
           >
             Powertrain Engineering
           </button>
           <button
             onClick={() => handleNavClick(onOpenContact)}
-            className="w-full text-left py-2.5 px-3 text-zinc-200 rounded-lg hover:bg-zinc-900 hover:text-red-400 transition-colors flex items-center justify-between"
+            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors flex items-center justify-between"
           >
             <span>Contact & Inquiries</span>
             <ArrowUpRight className="w-4 h-4 text-red-500" />

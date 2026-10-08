@@ -20,7 +20,7 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="border-t border-zinc-800 bg-black text-zinc-400">
+    <footer className="border-t border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-black text-zinc-600 dark:text-zinc-400 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           
@@ -28,16 +28,16 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="md:col-span-5 space-y-4">
             <button
               onClick={onNavigateHome}
-              className="group flex items-center gap-2.5 text-left focus-visible:outline-none"
+              className="group flex items-center gap-2.5 text-left focus-visible:outline-none cursor-pointer"
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-rose-700 flex items-center justify-center text-white shadow-lg shadow-red-600/30">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-rose-700 flex items-center justify-center text-white shadow-md shadow-red-600/30">
                 <Gauge className="w-4 h-4" />
               </div>
-              <span className="font-display text-2xl font-black text-white tracking-tight">
-                REV <span className="text-red-500 font-extrabold">TALKS</span>
+              <span className="font-display text-2xl font-black text-zinc-950 dark:text-white tracking-tight">
+                REV <span className="text-red-600 dark:text-red-500 font-extrabold">TALKS</span>
               </span>
             </button>
-            <p className="text-sm leading-relaxed text-zinc-400 max-w-sm">
+            <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 max-w-sm">
               The premier automotive journal celebrating naturally aspirated redlines, analog chassis balance, track-bred homologations, and next-generation powertrain physics.
             </p>
             <div className="flex items-center gap-2 text-xs font-mono text-zinc-500 pt-2">
@@ -48,7 +48,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Directory Column 1 */}
           <div className="md:col-span-3 space-y-3">
-            <div className="text-xs font-mono uppercase tracking-widest text-white font-bold flex items-center gap-1.5">
+            <div className="text-xs font-mono uppercase tracking-widest text-zinc-950 dark:text-white font-bold flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
               <span>Paddock Directory</span>
             </div>
@@ -59,7 +59,7 @@ export const Footer: React.FC<FooterProps> = ({
                     onSelectVehicleType('Car');
                     onNavigateHome();
                   }}
-                  className="hover:text-red-400 transition-colors"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Supercars & GTs
                 </button>
@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = ({
                     onSelectVehicleType('Motorcycle');
                     onNavigateHome();
                   }}
-                  className="hover:text-red-400 transition-colors"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Superbikes & Two-Strokes
                 </button>
@@ -81,7 +81,7 @@ export const Footer: React.FC<FooterProps> = ({
                     onSelectCategory('Motorsport');
                     onNavigateHome();
                   }}
-                  className="hover:text-red-400 transition-colors"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Motorsport & Le Mans
                 </button>
@@ -92,7 +92,7 @@ export const Footer: React.FC<FooterProps> = ({
                     onSelectCategory('Engineering');
                     onNavigateHome();
                   }}
-                  className="hover:text-red-400 transition-colors"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Dyno & Powertrains
                 </button>
@@ -102,7 +102,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Editorial & Inquiries Column */}
           <div className="md:col-span-4 space-y-3">
-            <div className="text-xs font-mono uppercase tracking-widest text-white font-bold flex items-center gap-1.5">
+            <div className="text-xs font-mono uppercase tracking-widest text-zinc-950 dark:text-white font-bold flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
               <span>Editorial Desk</span>
             </div>
@@ -110,7 +110,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onOpenContact}
-                  className="hover:text-red-400 transition-colors"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Letters to Rev Talks
                 </button>
@@ -118,7 +118,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onOpenContact}
-                  className="hover:text-red-400 transition-colors"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Technical Dyno Note & Fact Check
                 </button>
@@ -126,7 +126,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onOpenContact}
-                  className="hover:text-red-400 transition-colors"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Media & High-Res Schematics
                 </button>
@@ -139,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-14 pt-8 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-500 gap-4">
+        <div className="mt-14 pt-8 border-t border-zinc-200 dark:border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-500 gap-4">
           <div>
             © {new Date().getFullYear()} Rev Talks. All rights reserved. Built for speed.
           </div>
@@ -148,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({
             <span className="hidden sm:inline">Ultra-Fast · Responsive · Pure Octane</span>
             <button
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 text-zinc-300 hover:text-red-400 transition-colors font-bold"
+              className="inline-flex items-center gap-1.5 text-zinc-700 dark:text-zinc-300 hover:text-red-600 dark:hover:text-red-400 transition-colors font-bold cursor-pointer"
               title="Return to top"
             >
               <span>Back to Top</span>

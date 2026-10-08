@@ -26,32 +26,32 @@ export const NewsletterSection: React.FC = () => {
   };
 
   return (
-    <section className="border-y border-zinc-800 bg-linear-to-b from-zinc-950 via-zinc-900 to-black py-16 px-4 sm:px-6 relative overflow-hidden">
+    <section className="border-y border-zinc-200 dark:border-zinc-800 bg-gradient-to-b from-zinc-100 via-white to-zinc-100 dark:from-zinc-950 dark:via-zinc-900 dark:to-black py-16 px-4 sm:px-6 relative overflow-hidden transition-colors duration-200">
       {/* Background ambient red glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-red-600/10 blur-3xl pointer-events-none" />
 
       <div className="max-w-3xl mx-auto text-center relative z-10">
-        <div className="text-xs font-mono uppercase tracking-widest text-red-500 font-bold mb-2 flex items-center justify-center gap-1.5">
+        <div className="text-xs font-mono uppercase tracking-widest text-red-600 dark:text-red-500 font-bold mb-2 flex items-center justify-center gap-1.5">
           <Gauge className="w-4 h-4 text-red-500" />
           <span>The Redline Dispatch</span>
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-3">
-          REV TALKS <span className="text-red-500 font-extrabold">INBOX</span>
+        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-zinc-950 dark:text-white tracking-tight mb-3">
+          REV TALKS <span className="text-red-600 dark:text-red-500 font-extrabold">INBOX</span>
         </h2>
-        <p className="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-8">
+        <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-8">
           Bi-weekly deep dives into high-revving engines, track-day physics, and legendary machines. No clickbait, 100% octane.
         </p>
 
         {status === 'success' ? (
-          <div className="inline-flex items-center gap-2 p-3.5 px-6 rounded-xl bg-emerald-950/70 border border-emerald-800 text-emerald-300 text-sm font-mono animate-fadeIn">
-            <Check className="w-4 h-4 text-emerald-400" />
+          <div className="inline-flex items-center gap-2 p-3.5 px-6 rounded-xl bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-sm font-mono animate-fadeIn">
+            <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>You're strapped in. First dispatch will land at {email}.</span>
           </div>
         ) : (
           <form onSubmit={handleSubscribe} className="max-w-md mx-auto space-y-2">
             <div className="flex flex-col sm:flex-row gap-2">
               <div className="relative flex-1">
-                <Mail className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="email"
                   value={email}
@@ -59,21 +59,21 @@ export const NewsletterSection: React.FC = () => {
                     setEmail(e.target.value);
                     if (status === 'error') setStatus('idle');
                   }}
-                  placeholder="enter.your.email@paddock.com"
-                  className="w-full pl-10 pr-4 py-3 text-sm bg-black/70 border border-zinc-800 rounded-lg focus:outline-none focus:border-red-500 text-white transition-colors"
+                  placeholder="driver@paddock.com"
+                  className="w-full pl-10 pr-4 py-3 text-sm bg-white dark:bg-black/70 border border-zinc-300 dark:border-zinc-800 rounded-lg focus:outline-none focus:border-red-500 text-zinc-900 dark:text-white transition-colors"
                 />
               </div>
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="px-6 py-3 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-mono uppercase tracking-wider font-bold transition-all shadow-lg shadow-red-600/30 disabled:opacity-50 shrink-0 flex items-center justify-center gap-1.5"
+                className="px-6 py-3 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-mono uppercase tracking-wider font-bold transition-all shadow-md shadow-red-600/30 disabled:opacity-50 shrink-0 flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Zap className="w-3.5 h-3.5 fill-current" />
                 <span>{status === 'submitting' ? 'Ignition...' : 'Subscribe'}</span>
               </button>
             </div>
             {status === 'error' && (
-              <p className="text-xs text-red-400 flex items-center justify-center gap-1 mt-1 font-mono">
+              <p className="text-xs text-red-500 flex items-center justify-center gap-1 mt-1 font-mono">
                 <AlertCircle className="w-3 h-3 inline" /> {errorMessage}
               </p>
             )}

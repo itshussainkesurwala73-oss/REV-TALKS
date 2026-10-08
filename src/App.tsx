@@ -9,15 +9,15 @@ import { SearchModal } from './components/SearchModal';
 import { BookmarksModal } from './components/BookmarksModal';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
-import { SlidersHorizontal, Gauge, Zap, Flame, ArrowRight, Activity, Disc } from 'lucide-react';
+import { SlidersHorizontal, Flame, ArrowRight, Activity, Disc } from 'lucide-react';
 import cinematicBg from './assets/images/revtalks_cinematic_bg_1791385997218.jpg';
 
 export default function App() {
-  // Dark mode state: default to dark for the sporty aesthetic vibe
+  // Dark mode state: persists accurately in localStorage
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     const saved = localStorage.getItem('revtalks_theme');
     if (saved) return saved === 'dark';
-    return true; // Default dark for sporty aesthetic
+    return true; // Default to sporty dark mode
   });
 
   // Navigation & View State
@@ -42,42 +42,92 @@ export default function App() {
     }
   });
 
-  // Apply dark mode class to html element
+  // Apply dark/light mode classes to html document root
   useEffect(() => {
+    const root = document.documentElement;
     if (darkMode) {
-      document.documentElement.classList.add('dark');
+      root.classList.add('dark');
+      root.classList.remove('light');
       localStorage.setItem('revtalks_theme', 'dark');
     } else {
-      document.documentElement.classList.remove('dark');
+      root.classList.remove('dark');
+      root.classList.add('light');
       localStorage.setItem('revtalks_theme', 'light');
     }
   }, [darkMode]);
 
-  // URL hash sync for deep linking & back button support
+  // Comprehensive URL Hash Router & Deep Linking
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
+    const parseHash = () => {
+      const hash = window.location.hash.toLowerCase();
+
+      // 1. Article view: #article/:slug
       if (hash.startsWith('#article/')) {
         const slug = hash.replace('#article/', '');
-        const found = ARTICLES.find((a) => a.slug === slug);
+        const found = ARTICLES.find((a) => a.slug.toLowerCase() === slug);
         if (found) {
           setSelectedArticle(found);
           setCurrentView('article');
           return;
         }
       }
+
+      // 2. Contact view: #contact
       if (hash === '#contact') {
         setCurrentView('contact');
         setSelectedArticle(null);
         return;
       }
+
+      // 3. Category filter: #category/:cat
+      if (hash.startsWith('#category/')) {
+        const catSlug = hash.replace('#category/', '');
+        const categoryMap: Record<string, Category> = {
+          supercars: 'Supercars',
+          superbikes: 'Superbikes',
+          motorsport: 'Motorsport',
+          engineering: 'Engineering',
+          heritage: 'Heritage',
+        };
+
+        if (categoryMap[catSlug]) {
+          setActiveCategory(categoryMap[catSlug]);
+          setActiveVehicleType('All');
+          setCurrentView('home');
+          setSelectedArticle(null);
+          return;
+        }
+      }
+
+      // 4. Machine class filter: #type/:type
+      if (hash.startsWith('#type/')) {
+        const typeSlug = hash.replace('#type/', '');
+        if (typeSlug === 'car' || typeSlug === 'cars') {
+          setActiveVehicleType('Car');
+          setCurrentView('home');
+          setSelectedArticle(null);
+          return;
+        }
+        if (typeSlug === 'motorcycle' || typeSlug === 'motorcycles' || typeSlug === 'bikes') {
+          setActiveVehicleType('Motorcycle');
+          setCurrentView('home');
+          setSelectedArticle(null);
+          return;
+        }
+      }
+
+      // 5. Default Home view: #home or empty
       setCurrentView('home');
       setSelectedArticle(null);
+      if (hash === '' || hash === '#' || hash === '#home') {
+        setActiveCategory('All');
+        setActiveVehicleType('All');
+      }
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    parseHash();
+    window.addEventListener('hashchange', parseHash);
+    return () => window.removeEventListener('hashchange', parseHash);
   }, []);
 
   // Keyboard shortcut: Cmd+K / Ctrl+K for search
@@ -96,6 +146,7 @@ export default function App() {
     setDarkMode(!darkMode);
   };
 
+  // URL State Transition Handlers
   const handleSelectArticle = (article: Article) => {
     setSelectedArticle(article);
     setCurrentView('article');
@@ -106,8 +157,38 @@ export default function App() {
   const handleNavigateHome = () => {
     setCurrentView('home');
     setSelectedArticle(null);
-    window.location.hash = '';
+    setActiveCategory('All');
+    setActiveVehicleType('All');
+    window.location.hash = '#home';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectCategory = (cat: Category | 'All') => {
+    setActiveCategory(cat);
+    setActiveVehicleType('All');
+    setCurrentView('home');
+    setSelectedArticle(null);
+    if (cat === 'All') {
+      window.location.hash = '#home';
+    } else {
+      window.location.hash = `#category/${cat.toLowerCase()}`;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectVehicleType = (vt: VehicleType | 'All') => {
+    setActiveVehicleType(vt);
+    setCurrentView('home');
+    setSelectedArticle(null);
+    if (vt === 'All') {
+      if (activeCategory === 'All') {
+        window.location.hash = '#home';
+      } else {
+        window.location.hash = `#category/${activeCategory.toLowerCase()}`;
+      }
+    } else {
+      window.location.hash = `#type/${vt.toLowerCase()}`;
+    }
   };
 
   const handleOpenContact = () => {
@@ -143,53 +224,50 @@ export default function App() {
   });
 
   const featuredArticle = ARTICLES.find((a) => a.featured) || ARTICLES[0];
-  const gridArticles = activeCategory === 'All' && activeVehicleType === 'All'
-    ? filteredArticles
-    : filteredArticles;
+  const gridArticles = filteredArticles;
 
   return (
-    <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-red-500/30 selection:text-red-200 transition-colors duration-200 flex flex-col relative overflow-x-hidden">
+    <div className="min-h-screen bg-stone-100 dark:bg-black text-zinc-900 dark:text-zinc-100 font-sans selection:bg-red-500/30 selection:text-red-200 transition-colors duration-200 flex flex-col relative overflow-x-hidden">
       
       {/* =========================================================================
-          CINEMATIC CARS & BIKES ATMOSPHERIC BACKGROUND SYSTEM
+          CINEMATIC CARS & BIKES ATMOSPHERIC BACKGROUND SYSTEM (LIGHT & DARK ADAPTIVE)
          ========================================================================= */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Cinematic Backdrop Image of Circuit, Light Streaks & Supercars/Bikes */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden transition-opacity duration-300">
+        {/* Cinematic Backdrop Image */}
         <img
           src={cinematicBg}
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-cover object-center opacity-30 dark:opacity-35 scale-105 transform mix-blend-screen contrast-125 filter blur-[0.5px]"
+          className="w-full h-full object-cover object-center opacity-15 dark:opacity-35 scale-105 transform mix-blend-multiply dark:mix-blend-screen contrast-125 filter blur-[0.5px]"
         />
 
-        {/* Dynamic Dark Scrim to guarantee WCAG 4.5:1+ Contrast & Legibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-zinc-950/90 to-black pointer-events-none" />
+        {/* Dynamic Theme Scrim */}
+        <div className="absolute inset-0 bg-gradient-to-b from-stone-100/90 via-stone-100/95 to-stone-200/95 dark:from-black/80 dark:via-zinc-950/90 dark:to-black pointer-events-none" />
 
         {/* Racing Circuit Grid Lines Graphic Overlay */}
-        <div className="absolute inset-0 bg-circuit-grid opacity-35 pointer-events-none" />
+        <div className="absolute inset-0 bg-circuit-grid opacity-20 dark:opacity-35 pointer-events-none" />
 
-        {/* Ambient Redline & Headlight Glowing Halo Accents */}
-        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-red-600/15 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute top-2/3 -right-20 w-[600px] h-[600px] bg-rose-600/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-10 left-1/3 w-[450px] h-[350px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
+        {/* Ambient Redline Glow Accents */}
+        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-red-600/10 dark:bg-red-600/15 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-2/3 -right-20 w-[600px] h-[600px] bg-rose-600/5 dark:bg-rose-600/10 rounded-full blur-[140px] pointer-events-none" />
       </div>
 
       {/* Real-World Telemetry Ticker Strip */}
-      <div className="relative z-40 bg-zinc-950/90 border-b border-zinc-800/80 py-1.5 px-4 text-[10px] font-mono text-zinc-400 overflow-hidden hidden md:block">
+      <div className="relative z-40 bg-white/90 dark:bg-zinc-950/90 border-b border-zinc-200 dark:border-zinc-800/80 py-1.5 px-4 text-[10px] font-mono text-zinc-600 dark:text-zinc-400 overflow-hidden hidden md:block transition-colors duration-200">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-red-500 font-bold uppercase tracking-wider">
+            <span className="flex items-center gap-1.5 text-red-600 dark:text-red-500 font-bold uppercase tracking-wider">
               <Activity className="w-3 h-3 text-red-500" />
               LIVE TELEMETRY
             </span>
-            <span className="text-zinc-600">|</span>
-            <span className="text-zinc-300">MC LAREN XP5: <strong className="text-white">240.1 MPH</strong></span>
-            <span className="text-zinc-600">·</span>
-            <span className="text-zinc-300">MAZDA 787B: <strong className="text-white">9,000 RPM (R26B)</strong></span>
-            <span className="text-zinc-600">·</span>
-            <span className="text-zinc-300">KAWASAKI H2R: <strong className="text-white">130,000 RPM BLOWER</strong></span>
-            <span className="text-zinc-600">·</span>
-            <span className="text-zinc-300">EV ROTOR: <strong className="text-white">100,000G CENTRIFUGAL</strong></span>
+            <span className="text-zinc-300 dark:text-zinc-600">|</span>
+            <span className="text-zinc-700 dark:text-zinc-300">MC LAREN XP5: <strong className="text-zinc-950 dark:text-white">240.1 MPH</strong></span>
+            <span className="text-zinc-300 dark:text-zinc-600">·</span>
+            <span className="text-zinc-700 dark:text-zinc-300">MAZDA 787B: <strong className="text-zinc-950 dark:text-white">9,000 RPM (R26B)</strong></span>
+            <span className="text-zinc-300 dark:text-zinc-600">·</span>
+            <span className="text-zinc-700 dark:text-zinc-300">KAWASAKI H2R: <strong className="text-zinc-950 dark:text-white">130,000 RPM BLOWER</strong></span>
+            <span className="text-zinc-300 dark:text-zinc-600">·</span>
+            <span className="text-zinc-700 dark:text-zinc-300">EV ROTOR: <strong className="text-zinc-950 dark:text-white">100,000G CENTRIFUGAL</strong></span>
           </div>
 
           <div className="flex items-center gap-3 text-zinc-500">
@@ -210,15 +288,15 @@ export default function App() {
         onOpenBookmarks={() => setIsBookmarksOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
         onNavigateHome={handleNavigateHome}
-        onSelectCategory={(cat) => setActiveCategory(cat)}
-        onSelectVehicleType={(type) => setActiveVehicleType(type)}
+        onSelectCategory={handleSelectCategory}
+        onSelectVehicleType={handleSelectVehicleType}
         onOpenContact={handleOpenContact}
         activeCategory={activeCategory}
         activeVehicleType={activeVehicleType}
         currentView={currentView}
       />
 
-      {/* Main Body Content with Cinematic Depth */}
+      {/* Main Body Content with Depth */}
       <div className="flex-1 relative z-10">
         {currentView === 'article' && selectedArticle ? (
           <ArticleView
@@ -234,27 +312,27 @@ export default function App() {
         ) : (
           <main>
             {/* Cinematic Sporty Hero Section */}
-            <section className="border-b border-zinc-800/80 pt-12 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden backdrop-blur-xs">
+            <section className="border-b border-zinc-200 dark:border-zinc-800/80 pt-12 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden backdrop-blur-xs transition-colors duration-200">
               <div className="max-w-7xl mx-auto relative z-10">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-zinc-800/80">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-zinc-200 dark:border-zinc-800/80">
                   <div className="max-w-3xl">
-                    <div className="text-xs font-mono uppercase tracking-widest text-red-500 font-bold mb-3 flex items-center gap-2">
+                    <div className="text-xs font-mono uppercase tracking-widest text-red-600 dark:text-red-500 font-bold mb-3 flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
                       <span>The High-Octane Automotive Monograph</span>
-                      <span className="text-zinc-600">/</span>
-                      <span className="text-zinc-400">10 Curated Treatises</span>
+                      <span className="text-zinc-300 dark:text-zinc-600">/</span>
+                      <span className="text-zinc-600 dark:text-zinc-400">10 Curated Treatises</span>
                     </div>
                     <h1
-                      className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-md"
+                      className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-950 dark:text-white tracking-tight leading-tight drop-shadow-xs"
                       style={{ textWrap: 'balance' }}
                     >
-                      BRED ON ASPHALT. <span className="text-transparent bg-clip-text bg-linear-to-r from-red-500 via-rose-500 to-amber-500">ENGINEERED FOR REDLINE.</span>
+                      BRED ON ASPHALT. <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 dark:from-red-500 dark:via-rose-500 dark:to-amber-500">ENGINEERED FOR REDLINE.</span>
                     </h1>
                   </div>
                   
                   {/* High Aesthetic Tech Badge */}
-                  <div className="text-sm text-zinc-300 font-sans max-w-sm leading-relaxed border-l-2 border-red-500 pl-4 bg-zinc-950/70 p-4 rounded-r-xl border-y border-r border-zinc-800/80 backdrop-blur-md">
-                    <div className="flex items-center gap-2 text-xs font-mono text-red-400 uppercase font-bold mb-1">
+                  <div className="text-sm text-zinc-700 dark:text-zinc-300 font-sans max-w-sm leading-relaxed border-l-2 border-red-500 pl-4 bg-white/80 dark:bg-zinc-950/70 p-4 rounded-r-xl border-y border-r border-zinc-200 dark:border-zinc-800/80 backdrop-blur-md shadow-xs">
+                    <div className="flex items-center gap-2 text-xs font-mono text-red-600 dark:text-red-400 uppercase font-bold mb-1">
                       <Disc className="w-3.5 h-3.5 animate-spin" />
                       <span>Pure Mechanical Mastery</span>
                     </div>
@@ -265,47 +343,47 @@ export default function App() {
                 {/* Lead Story Spotlight (Lead Salience Tier) */}
                 {activeCategory === 'All' && activeVehicleType === 'All' && (
                   <div className="mt-10">
-                    <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-3 flex items-center gap-2 font-bold">
+                    <div className="text-xs font-mono uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-3 flex items-center gap-2 font-bold">
                       <Flame className="w-3.5 h-3.5 text-red-500" />
                       <span>Issue Headline // Featured Machine</span>
                     </div>
                     <div
                       onClick={() => handleSelectArticle(featuredArticle)}
-                      className="group cursor-pointer rounded-2xl border border-zinc-800/90 bg-zinc-900/70 backdrop-blur-md overflow-hidden hover:border-red-500/80 transition-all duration-300 shadow-2xl hover:shadow-red-950/30 relative"
+                      className="group cursor-pointer rounded-2xl border border-zinc-200 dark:border-zinc-800/90 bg-white/90 dark:bg-zinc-900/70 backdrop-blur-md overflow-hidden hover:border-red-500/80 transition-all duration-300 shadow-md hover:shadow-2xl dark:hover:shadow-red-950/30 relative"
                     >
                       {/* Top Redline Accent */}
                       <div className="h-1 w-0 group-hover:w-full bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 transition-all duration-500 absolute top-0 left-0 z-20" />
 
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                        <div className="lg:col-span-7 overflow-hidden bg-black aspect-16/9 lg:aspect-auto relative">
+                        <div className="lg:col-span-7 overflow-hidden bg-zinc-100 dark:bg-black aspect-16/9 lg:aspect-auto relative">
                           <img
                             src={featuredArticle.heroImage}
                             alt={featuredArticle.title}
                             referrerPolicy="no-referrer"
                             className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-700 ease-out brightness-95 group-hover:brightness-105"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                         </div>
-                        <div className="lg:col-span-5 p-7 sm:p-10 flex flex-col justify-between bg-zinc-950/80 backdrop-blur-md">
+                        <div className="lg:col-span-5 p-7 sm:p-10 flex flex-col justify-between bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
                           <div>
-                            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-zinc-400 mb-3">
-                              <span className="text-red-500 font-bold">{featuredArticle.category}</span>
-                              <span className="text-zinc-600">/</span>
-                              <span className="text-zinc-200">{featuredArticle.vehicleType}</span>
-                              <span className="text-zinc-600">/</span>
+                            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-3">
+                              <span className="text-red-600 dark:text-red-500 font-bold">{featuredArticle.category}</span>
+                              <span className="text-zinc-300 dark:text-zinc-600">/</span>
+                              <span className="text-zinc-700 dark:text-zinc-200">{featuredArticle.vehicleType}</span>
+                              <span className="text-zinc-300 dark:text-zinc-600">/</span>
                               <span>{featuredArticle.readTimeMinutes} min read</span>
                             </div>
-                            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white group-hover:text-red-400 transition-colors leading-tight mb-4 tracking-tight">
+                            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-950 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors leading-tight mb-4 tracking-tight">
                               {featuredArticle.title}
                             </h2>
-                            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed line-clamp-4">
+                            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed line-clamp-4">
                               {featuredArticle.excerpt}
                             </p>
                           </div>
 
-                          <div className="pt-6 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono mt-6">
-                            <span className="text-zinc-400">By {featuredArticle.author.name}</span>
-                            <span className="text-red-400 font-bold group-hover:translate-x-1.5 transition-transform inline-flex items-center gap-1.5">
+                          <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between text-xs font-mono mt-6">
+                            <span className="text-zinc-500 dark:text-zinc-400">By {featuredArticle.author.name}</span>
+                            <span className="text-red-600 dark:text-red-400 font-bold group-hover:translate-x-1.5 transition-transform inline-flex items-center gap-1.5">
                               <span>Read Full Dispatch</span>
                               <ArrowRight className="w-3.5 h-3.5" />
                             </span>
@@ -318,27 +396,27 @@ export default function App() {
               </div>
             </section>
 
-            {/* Filter Controls & Catalog with Translucent Glass Backdrop */}
+            {/* Filter Controls & Catalog */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
               {/* Interactive Segmented Filter Control */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-zinc-800/80">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-zinc-200 dark:border-zinc-800/80">
                 <div className="flex items-center gap-2">
                   <SlidersHorizontal className="w-4 h-4 text-red-500" />
-                  <span className="text-xs font-mono uppercase tracking-widest font-bold text-white">
+                  <span className="text-xs font-mono uppercase tracking-widest font-bold text-zinc-900 dark:text-white">
                     Paddock Category Filter
                   </span>
                 </div>
 
                 {/* Filter Tabs with sporty active highlight */}
-                <div className="flex flex-wrap items-center gap-1.5 p-1 bg-zinc-950/80 border border-zinc-800 rounded-xl backdrop-blur-md">
+                <div className="flex flex-wrap items-center gap-1.5 p-1 bg-white/80 dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-800 rounded-xl backdrop-blur-md shadow-xs">
                   {(['All', 'Supercars', 'Superbikes', 'Motorsport', 'Engineering', 'Heritage'] as (Category | 'All')[]).map((cat) => (
                     <button
                       key={cat}
-                      onClick={() => setActiveCategory(cat)}
-                      className={`px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider rounded-lg transition-all whitespace-nowrap font-medium ${
+                      onClick={() => handleSelectCategory(cat)}
+                      className={`px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider rounded-lg transition-all whitespace-nowrap font-medium cursor-pointer ${
                         activeCategory === cat
                           ? 'bg-red-600 text-white font-bold shadow-md shadow-red-600/40'
-                          : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
+                          : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
                       }`}
                     >
                       {cat}
@@ -348,16 +426,16 @@ export default function App() {
               </div>
 
               {/* Sub-filter by Machine Type */}
-              <div className="flex items-center gap-4 mb-8 text-xs font-mono text-zinc-400">
+              <div className="flex items-center gap-4 mb-8 text-xs font-mono text-zinc-600 dark:text-zinc-400">
                 <span className="text-zinc-500 uppercase">Machine Class:</span>
                 {(['All', 'Car', 'Motorcycle'] as (VehicleType | 'All')[]).map((vt) => (
                   <button
                     key={vt}
-                    onClick={() => setActiveVehicleType(vt)}
-                    className={`hover:text-white transition-colors font-semibold ${
+                    onClick={() => handleSelectVehicleType(vt)}
+                    className={`hover:text-zinc-950 dark:hover:text-white transition-colors font-semibold cursor-pointer ${
                       activeVehicleType === vt
-                        ? 'text-red-400 border-b border-red-500 pb-0.5'
-                        : 'text-zinc-400'
+                        ? 'text-red-600 dark:text-red-400 border-b-2 border-red-500 pb-0.5'
+                        : 'text-zinc-500 dark:text-zinc-400'
                     }`}
                   >
                     {vt === 'Car' ? 'Supercars (6)' : vt === 'Motorcycle' ? 'Superbikes (4)' : 'Full Grid (10)'}
@@ -365,7 +443,7 @@ export default function App() {
                 ))}
               </div>
 
-              {/* Articles Grid with Glassmorphic Card Presence */}
+              {/* Articles Grid */}
               {gridArticles.length === 0 ? (
                 <div className="py-20 text-center text-zinc-500 font-mono text-sm">
                   No treatises found matching the selected filter combination.
@@ -410,14 +488,8 @@ export default function App() {
 
       {/* Footer */}
       <Footer
-        onSelectCategory={(cat) => {
-          setActiveCategory(cat);
-          handleNavigateHome();
-        }}
-        onSelectVehicleType={(vt) => {
-          setActiveVehicleType(vt);
-          handleNavigateHome();
-        }}
+        onSelectCategory={handleSelectCategory}
+        onSelectVehicleType={handleSelectVehicleType}
         onOpenContact={handleOpenContact}
         onNavigateHome={handleNavigateHome}
       />
