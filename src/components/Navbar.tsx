@@ -173,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Zone 3: Actions + Engine Start Audio Toggle */}
           <div className="flex items-center gap-2 sm:gap-2.5">
             
-            {/* Subtle 'ENGINE START' Audio Button */}
+            {/* Subtle 'MUSTANG 5.0 V8' Audio Button */}
             <button
               type="button"
               onClick={handleEngineStart}
@@ -182,8 +182,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ? 'bg-red-950/80 border-red-500 text-white shadow-lg shadow-red-600/40 ring-1 ring-red-500/50'
                   : 'bg-zinc-900/90 border-zinc-800 text-zinc-300 hover:text-white hover:border-red-500/60 hover:bg-zinc-800'
               }`}
-              aria-label={engineState !== 'off' ? 'Stop engine audio' : 'Start engine ignition audio'}
-              title={engineState !== 'off' ? 'Engine Running // Click to cut' : 'Engine Start // Ignition & Rev sound'}
+              aria-label={engineState !== 'off' ? 'Stop Mustang V8 exhaust audio' : 'Start Ford Mustang 5.0 V8 exhaust audio'}
+              title={engineState !== 'off' ? 'Mustang 5.0 V8 Active // Click to cut' : 'Ford Mustang 5.0L V8 Exhaust // Push to Start'}
             >
               {/* Subtle Pulsing Red LED Indicator Dot */}
               <span className="relative flex h-2 w-2">
@@ -200,11 +200,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Status & Label */}
               <span className="hidden sm:inline font-bold">
                 {engineState === 'starting' ? (
-                  <span className="text-amber-400">CRANK...</span>
+                  <span className="text-amber-400">CRANK 5.0L...</span>
                 ) : engineState === 'revving' ? (
-                  <span className="text-red-400 animate-pulse">REV 7,500</span>
+                  <span className="text-red-400 animate-pulse">V8 ROAR 💥</span>
                 ) : (
-                  <span>ENGINE START</span>
+                  <span>MUSTANG 5.0 V8</span>
                 )}
               </span>
 
@@ -279,10 +279,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <span className="flex items-center gap-2">
                 <span className={`w-2 h-2 rounded-full ${engineState !== 'off' ? 'bg-red-500 animate-ping' : 'bg-zinc-500'}`} />
-                <span>Engine Ignition Audio</span>
+                <span>Mustang 5.0L V8 Exhaust</span>
               </span>
               <span className="text-red-400 font-bold">
-                {engineState !== 'off' ? 'REV RUNNING' : 'PUSH TO START'}
+                {engineState !== 'off' ? 'V8 ROAR 💥' : 'START V8'}
               </span>
             </button>
           </div>

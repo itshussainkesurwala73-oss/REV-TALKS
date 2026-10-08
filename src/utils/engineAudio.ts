@@ -1,10 +1,13 @@
 /**
- * High-precision Web Audio API Engine Start & Throttle Rev Synthesizer
- * Generates an authentic mechanical starter crank, combustion ignition crack,
- * and high-octane multi-cylinder exhaust rev crescendo.
+ * Ford Mustang 5.0L Coyote Cross-Plane V8 Exhaust Sound Synthesizer
+ * Engineered via Web Audio API to reproduce the iconic American muscle car acoustic profile:
+ * - Heavy starter motor compression cranking
+ * - Explosive active-valve ignition bark
+ * - Deep, guttural cross-plane V8 throttle flare with throaty quad-tip resonance
+ * - Deceleration overrun exhaust crackles and deep loping idle burble
  */
 
-class EngineSoundSynthesizer {
+class MustangV8SoundSynthesizer {
   private ctx: AudioContext | null = null;
   private isPlaying = false;
   private currentStopCallbacks: (() => void)[] = [];
@@ -20,15 +23,15 @@ class EngineSoundSynthesizer {
     return this.ctx;
   }
 
-  // Distortion curve for throat exhaust grit
-  private makeDistortionCurve(amount = 25): Float32Array {
+  // Heavy tube saturation distortion curve for American muscle exhaust grit
+  private makeMuscleExhaustCurve(amount = 32): Float32Array {
     const k = amount;
     const nSamples = 44100;
     const curve = new Float32Array(nSamples);
     const deg = Math.PI / 180;
     for (let i = 0; i < nSamples; ++i) {
       const x = (i * 2) / nSamples - 1;
-      curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+      curve[i] = ((3 + k) * x * 22 * deg) / (Math.PI + k * Math.abs(x));
     }
     return curve;
   }
@@ -37,176 +40,196 @@ class EngineSoundSynthesizer {
     try {
       const ctx = this.getContext();
       const now = ctx.currentTime;
-      this.stop(); // Stop any previous playback
+      this.stop();
       this.isPlaying = true;
 
+      // Master Output with headroom protection
       const masterGain = ctx.createGain();
-      masterGain.gain.setValueAtTime(0.45, now);
+      masterGain.gain.setValueAtTime(0.55, now);
       masterGain.connect(ctx.destination);
 
-      // Waveshaper for exhaust overdrive
+      // Heavy quad-exhaust pipe distortion stage
       const distortion = ctx.createWaveShaper();
-      distortion.curve = this.makeDistortionCurve(18) as Float32Array<ArrayBuffer>;
+      distortion.curve = this.makeMuscleExhaustCurve(30) as Float32Array<ArrayBuffer>;
       distortion.oversample = '4x';
       distortion.connect(masterGain);
 
-      // Dynamic Lowpass Filter (exhaust tone)
-      const exhaustFilter = ctx.createBiquadFilter();
-      exhaustFilter.type = 'lowpass';
-      exhaustFilter.Q.setValueAtTime(2.2, now);
-      exhaustFilter.connect(distortion);
+      // Primary Muffler Chamber Resonant Filter (throaty chambered tone)
+      const mufflerFilter = ctx.createBiquadFilter();
+      mufflerFilter.type = 'lowpass';
+      mufflerFilter.Q.setValueAtTime(3.2, now);
+      mufflerFilter.connect(distortion);
 
-      // -------------------------------------------------------------
-      // 1. STARTER MOTOR CRANK (0.0s - 0.4s)
-      // -------------------------------------------------------------
+      // Resonant Exhaust Pipe Peak (gives that hollow 400Hz Coyote throat resonance)
+      const pipeResonance = ctx.createBiquadFilter();
+      pipeResonance.type = 'peaking';
+      pipeResonance.frequency.setValueAtTime(380, now);
+      pipeResonance.gain.setValueAtTime(7.0, now);
+      pipeResonance.Q.setValueAtTime(2.0, now);
+      pipeResonance.connect(mufflerFilter);
+
+      // -------------------------------------------------------------------
+      // 1. STARTER MOTOR & HEAVY V8 CYLINDER COMPRESSION (0.0s - 0.45s)
+      // -------------------------------------------------------------------
       const starterOsc = ctx.createOscillator();
       const starterGain = ctx.createGain();
       starterOsc.type = 'sawtooth';
-      starterOsc.frequency.setValueAtTime(80, now);
-      starterOsc.frequency.linearRampToValueAtTime(110, now + 0.15);
-      starterOsc.frequency.setValueAtTime(75, now + 0.22);
-      starterOsc.frequency.linearRampToValueAtTime(120, now + 0.38);
+      starterOsc.frequency.setValueAtTime(65, now);
+      // Muscular compression chugs (slower, heavier than high-rev euro engines)
+      starterOsc.frequency.linearRampToValueAtTime(85, now + 0.12);
+      starterOsc.frequency.setValueAtTime(58, now + 0.20);
+      starterOsc.frequency.linearRampToValueAtTime(95, now + 0.35);
 
-      starterGain.gain.setValueAtTime(0.2, now);
-      starterGain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+      starterGain.gain.setValueAtTime(0.25, now);
+      starterGain.gain.exponentialRampToValueAtTime(0.001, now + 0.44);
 
       starterOsc.connect(starterGain);
       starterGain.connect(masterGain);
       starterOsc.start(now);
-      starterOsc.stop(now + 0.45);
+      starterOsc.stop(now + 0.46);
 
-      // Starter clicks (rapid solenoid chatter)
-      const bufferSize = ctx.sampleRate * 0.4;
-      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        output[i] = (Math.random() * 2 - 1) * Math.sin(i * 0.08);
+      // High-torque starter motor armature whine
+      const starterWhine = ctx.createOscillator();
+      const starterWhineGain = ctx.createGain();
+      starterWhine.type = 'triangle';
+      starterWhine.frequency.setValueAtTime(240, now);
+      starterWhine.frequency.linearRampToValueAtTime(380, now + 0.35);
+      starterWhineGain.gain.setValueAtTime(0.12, now);
+      starterWhineGain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+
+      starterWhine.connect(starterWhineGain);
+      starterWhineGain.connect(masterGain);
+      starterWhine.start(now);
+      starterWhine.stop(now + 0.45);
+
+      // -------------------------------------------------------------------
+      // 2. EXPLOSIVE COYOTE ACTIVE-VALVE IGNITION BARK (0.42s - 0.75s)
+      // -------------------------------------------------------------------
+      const barkNoise = ctx.createBufferSource();
+      const barkLength = Math.floor(ctx.sampleRate * 0.4);
+      const barkBuffer = ctx.createBuffer(1, barkLength, ctx.sampleRate);
+      const barkData = barkBuffer.getChannelData(0);
+      for (let i = 0; i < barkLength; i++) {
+        // explosive initial snap followed by raspy throat decay
+        barkData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.065));
       }
-      const noiseSource = ctx.createBufferSource();
-      noiseSource.buffer = noiseBuffer;
-      const noiseFilter = ctx.createBiquadFilter();
-      noiseFilter.type = 'bandpass';
-      noiseFilter.frequency.setValueAtTime(450, now);
-      noiseFilter.Q.setValueAtTime(3.0, now);
+      barkNoise.buffer = barkBuffer;
 
-      const noiseGain = ctx.createGain();
-      noiseGain.gain.setValueAtTime(0.25, now);
-      noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+      const barkFilter = ctx.createBiquadFilter();
+      barkFilter.type = 'bandpass';
+      barkFilter.frequency.setValueAtTime(280, now + 0.42);
+      barkFilter.Q.setValueAtTime(1.8, now + 0.42);
 
-      noiseSource.connect(noiseFilter);
-      noiseFilter.connect(noiseGain);
-      noiseGain.connect(masterGain);
-      noiseSource.start(now);
+      const barkGain = ctx.createGain();
+      barkGain.gain.setValueAtTime(0.0, now);
+      barkGain.gain.setValueAtTime(0.85, now + 0.42);
+      barkGain.gain.exponentialRampToValueAtTime(0.01, now + 0.75);
 
-      // -------------------------------------------------------------
-      // 2. IGNITION CATCH & COMBUSTION BURST (0.4s - 0.7s)
-      // -------------------------------------------------------------
-      const catchNoise = ctx.createBufferSource();
-      const catchBuffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.3), ctx.sampleRate);
-      const catchData = catchBuffer.getChannelData(0);
-      for (let i = 0; i < catchData.length; i++) {
-        catchData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.08));
-      }
-      catchNoise.buffer = catchBuffer;
-      const catchFilter = ctx.createBiquadFilter();
-      catchFilter.type = 'lowpass';
-      catchFilter.frequency.setValueAtTime(320, now + 0.4);
+      barkNoise.connect(barkFilter);
+      barkFilter.connect(barkGain);
+      barkGain.connect(distortion);
+      barkNoise.start(now + 0.42);
 
-      const catchGain = ctx.createGain();
-      catchGain.gain.setValueAtTime(0.0, now);
-      catchGain.gain.setValueAtTime(0.6, now + 0.4);
-      catchGain.gain.exponentialRampToValueAtTime(0.01, now + 0.7);
+      // -------------------------------------------------------------------
+      // 3. CROSS-PLANE CRANK V8 THROTTLE FLARE & SUB-BASS GROWL (0.45s - 2.5s)
+      // -------------------------------------------------------------------
+      // Sub-Bass fundamental cylinder thump (42Hz up to 140Hz)
+      const subRumble = ctx.createOscillator();
+      subRumble.type = 'triangle';
 
-      catchNoise.connect(catchFilter);
-      catchFilter.connect(catchGain);
-      catchGain.connect(masterGain);
-      catchNoise.start(now + 0.4);
+      // Primary Bank Sawtooth (Cylinder Bank 1)
+      const bank1Osc = ctx.createOscillator();
+      bank1Osc.type = 'sawtooth';
 
-      // -------------------------------------------------------------
-      // 3. THROTTLE REV BLIP & EXHAUST CRESENDO (0.45s - 2.2s)
-      // -------------------------------------------------------------
-      // Primary Cylinder Osc (Sawtooth fundamental)
-      const revOsc1 = ctx.createOscillator();
-      revOsc1.type = 'sawtooth';
-      
-      // Secondary Harmonic Osc (Cylinder pair)
-      const revOsc2 = ctx.createOscillator();
-      revOsc2.type = 'sawtooth';
+      // Secondary Cross-Plane Bank (Slightly detuned for classic V8 loping lope)
+      const bank2Osc = ctx.createOscillator();
+      bank2Osc.type = 'sawtooth';
 
-      // Sub-bass exhaust thump
-      const subOsc = ctx.createOscillator();
-      subOsc.type = 'triangle';
+      // Cross-plane LFO pulse to create the authentic American V8 "burble-chop"
+      const burbleLfo = ctx.createOscillator();
+      const burbleLfoGain = ctx.createGain();
+      burbleLfo.type = 'sine';
+      burbleLfo.frequency.setValueAtTime(16, now + 0.42); // 16Hz syncopated pulse
+      burbleLfo.frequency.linearRampToValueAtTime(28, now + 0.9);
+      burbleLfo.frequency.linearRampToValueAtTime(14, now + 2.0);
+      burbleLfoGain.gain.setValueAtTime(0.35, now + 0.42);
 
-      // Frequency Ramp Envelope: Idle -> Rev Peak -> Settle
-      const revGain = ctx.createGain();
+      // Pitch Envelope: 5.0L Coyote Cold Start Rev Flare
+      // 0.42s: Catches with deep 72Hz bark
+      // 0.88s: Throttles aggressively up to 240Hz (guttural muscle roar, not high euro buzz)
+      // 1.50s: Rolls down with raspy throat through 115Hz
+      // 2.20s: Settles into loping 48Hz cross-plane muscle idle
+      subRumble.frequency.setValueAtTime(42, now + 0.42);
+      subRumble.frequency.exponentialRampToValueAtTime(130, now + 0.88);
+      subRumble.frequency.exponentialRampToValueAtTime(68, now + 1.5);
+      subRumble.frequency.exponentialRampToValueAtTime(42, now + 2.2);
 
-      // Pitch curves
-      // 0.45s: Catch at 110Hz
-      // 0.85s: Rev blip up to 340Hz (simulating 7,500 RPM burst)
-      // 1.40s: Drop back down to 140Hz
-      // 2.00s: Settle to idle rumble at 65Hz
-      revOsc1.frequency.setValueAtTime(90, now + 0.4);
-      revOsc1.frequency.exponentialRampToValueAtTime(360, now + 0.85);
-      revOsc1.frequency.exponentialRampToValueAtTime(140, now + 1.45);
-      revOsc1.frequency.exponentialRampToValueAtTime(70, now + 2.0);
+      bank1Osc.frequency.setValueAtTime(74, now + 0.42);
+      bank1Osc.frequency.exponentialRampToValueAtTime(245, now + 0.88);
+      bank1Osc.frequency.exponentialRampToValueAtTime(115, now + 1.5);
+      bank1Osc.frequency.exponentialRampToValueAtTime(68, now + 2.2);
 
-      revOsc2.frequency.setValueAtTime(180, now + 0.4);
-      revOsc2.frequency.exponentialRampToValueAtTime(720, now + 0.85);
-      revOsc2.frequency.exponentialRampToValueAtTime(280, now + 1.45);
-      revOsc2.frequency.exponentialRampToValueAtTime(140, now + 2.0);
+      bank2Osc.frequency.setValueAtTime(77, now + 0.42); // detuned by +3Hz for beat frequency
+      bank2Osc.frequency.exponentialRampToValueAtTime(252, now + 0.88);
+      bank2Osc.frequency.exponentialRampToValueAtTime(118, now + 1.5);
+      bank2Osc.frequency.exponentialRampToValueAtTime(70, now + 2.2);
 
-      subOsc.frequency.setValueAtTime(45, now + 0.4);
-      subOsc.frequency.exponentialRampToValueAtTime(180, now + 0.85);
-      subOsc.frequency.exponentialRampToValueAtTime(70, now + 1.45);
-      subOsc.frequency.exponentialRampToValueAtTime(35, now + 2.0);
+      // Lowpass Muffler tracking: expands open during throttle blast, closes to bassy burble
+      mufflerFilter.frequency.setValueAtTime(320, now + 0.42);
+      mufflerFilter.frequency.exponentialRampToValueAtTime(1800, now + 0.88);
+      mufflerFilter.frequency.exponentialRampToValueAtTime(450, now + 1.5);
+      mufflerFilter.frequency.exponentialRampToValueAtTime(210, now + 2.3);
 
-      // Filter cutoff follows revs
-      exhaustFilter.frequency.setValueAtTime(280, now + 0.4);
-      exhaustFilter.frequency.exponentialRampToValueAtTime(2600, now + 0.85);
-      exhaustFilter.frequency.exponentialRampToValueAtTime(650, now + 1.45);
-      exhaustFilter.frequency.exponentialRampToValueAtTime(250, now + 2.0);
+      const mainV8Gain = ctx.createGain();
+      mainV8Gain.gain.setValueAtTime(0.0, now + 0.4);
+      mainV8Gain.gain.linearRampToValueAtTime(0.9, now + 0.55);
+      mainV8Gain.gain.setValueAtTime(1.0, now + 0.88);
+      mainV8Gain.gain.exponentialRampToValueAtTime(0.45, now + 1.5);
+      mainV8Gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
 
-      // Volume envelope
-      revGain.gain.setValueAtTime(0.0, now + 0.38);
-      revGain.gain.linearRampToValueAtTime(0.7, now + 0.55);
-      revGain.gain.setValueAtTime(0.85, now + 0.85);
-      revGain.gain.exponentialRampToValueAtTime(0.4, now + 1.45);
-      revGain.gain.exponentialRampToValueAtTime(0.001, now + 2.4);
+      subRumble.connect(pipeResonance);
+      bank1Osc.connect(pipeResonance);
+      bank2Osc.connect(pipeResonance);
 
-      revOsc1.connect(exhaustFilter);
-      revOsc2.connect(exhaustFilter);
-      subOsc.connect(exhaustFilter);
-      exhaustFilter.connect(revGain);
-      revGain.connect(masterGain);
+      burbleLfo.connect(burbleLfoGain);
+      burbleLfoGain.connect(mainV8Gain.gain);
 
-      revOsc1.start(now + 0.4);
-      revOsc2.start(now + 0.4);
-      subOsc.start(now + 0.4);
+      pipeResonance.connect(mainV8Gain);
+      mainV8Gain.connect(distortion);
 
-      revOsc1.stop(now + 2.45);
-      revOsc2.stop(now + 2.45);
-      subOsc.stop(now + 2.45);
+      subRumble.start(now + 0.42);
+      bank1Osc.start(now + 0.42);
+      bank2Osc.start(now + 0.42);
+      burbleLfo.start(now + 0.42);
 
-      // -------------------------------------------------------------
-      // 4. OVERRUN EXHAUST POP (1.3s - 1.8s)
-      // -------------------------------------------------------------
-      const popOsc = ctx.createOscillator();
-      const popGain = ctx.createGain();
-      popOsc.type = 'triangle';
-      popOsc.frequency.setValueAtTime(110, now + 1.35);
-      popOsc.frequency.exponentialRampToValueAtTime(40, now + 1.5);
+      subRumble.stop(now + 2.55);
+      bank1Osc.stop(now + 2.55);
+      bank2Osc.stop(now + 2.55);
+      burbleLfo.stop(now + 2.55);
 
-      popGain.gain.setValueAtTime(0.0, now + 1.3);
-      popGain.gain.setValueAtTime(0.25, now + 1.35);
-      popGain.gain.exponentialRampToValueAtTime(0.001, now + 1.55);
+      // -------------------------------------------------------------------
+      // 4. MUSTANG ACTIVE-EXHAUST OVERRUN CRACKLES (1.35s - 1.95s)
+      // -------------------------------------------------------------------
+      const popTimes = [1.38, 1.52, 1.68, 1.84];
+      popTimes.forEach((popTime, index) => {
+        const popOsc = ctx.createOscillator();
+        const popGain = ctx.createGain();
+        popOsc.type = index % 2 === 0 ? 'triangle' : 'sawtooth';
+        popOsc.frequency.setValueAtTime(130 - index * 18, now + popTime);
+        popOsc.frequency.exponentialRampToValueAtTime(35, now + popTime + 0.08);
 
-      popOsc.connect(popGain);
-      popGain.connect(masterGain);
-      popOsc.start(now + 1.35);
-      popOsc.stop(now + 1.6);
+        popGain.gain.setValueAtTime(0.0, now + popTime);
+        popGain.gain.setValueAtTime(0.35 - index * 0.05, now + popTime + 0.01);
+        popGain.gain.exponentialRampToValueAtTime(0.001, now + popTime + 0.07);
+
+        popOsc.connect(popGain);
+        popGain.connect(distortion);
+        popOsc.start(now + popTime);
+        popOsc.stop(now + popTime + 0.08);
+      });
 
       // Clean completion callback
-      const durationMs = 2450;
+      const durationMs = 2550;
       const timeoutId = window.setTimeout(() => {
         this.isPlaying = false;
         if (onComplete) onComplete();
@@ -241,4 +264,4 @@ class EngineSoundSynthesizer {
   }
 }
 
-export const engineAudio = new EngineSoundSynthesizer();
+export const engineAudio = new MustangV8SoundSynthesizer();
