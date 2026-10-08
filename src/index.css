@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
   --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
@@ -10,6 +11,23 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+html:not(.dark),
+html.light,
+[data-theme="light"] {
+  background-color: #ffffff;
+  color: #09090b;
+}
+
+html.dark,
+[data-theme="dark"] {
+  background-color: #000000;
+  color: #fafafa;
 }
 
 /* Custom Sporty Tachometer Glow and Carbon Gradients */

@@ -33,8 +33,26 @@
       "inLanguage": "en-US"
     }
     </script>
+    <!-- Theme initialization script (prevents theme flash on reload) -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('revtalks_theme');
+          var isDark = saved ? saved === 'dark' : true;
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+            document.documentElement.setAttribute('data-theme', 'light');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body class="bg-zinc-100 text-zinc-900 dark:bg-black dark:text-zinc-100 antialiased selection:bg-red-500/30 selection:text-red-200 transition-colors duration-200">
+  <body class="bg-white text-zinc-900 dark:bg-black dark:text-zinc-100 antialiased selection:bg-red-500/30 selection:text-red-200 transition-colors duration-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -7,6 +7,8 @@ interface FooterProps {
   onSelectVehicleType: (type: VehicleType | 'All') => void;
   onOpenContact: () => void;
   onNavigateHome: () => void;
+  darkMode?: boolean;
+  onToggleDarkMode?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -14,13 +16,15 @@ export const Footer: React.FC<FooterProps> = ({
   onSelectVehicleType,
   onOpenContact,
   onNavigateHome,
+  darkMode,
+  onToggleDarkMode,
 }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="border-t border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-black text-zinc-600 dark:text-zinc-400 transition-colors duration-200">
+    <footer className="border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-zinc-600 dark:text-zinc-400 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           
@@ -44,6 +48,20 @@ export const Footer: React.FC<FooterProps> = ({
               <Zap className="w-3.5 h-3.5 text-red-500 fill-current" />
               <span>10 Verified Technical Treatises · 100% Real-World Heritage</span>
             </div>
+
+            {onToggleDarkMode && (
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={onToggleDarkMode}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-xs font-mono text-zinc-800 dark:text-zinc-200 transition-colors cursor-pointer"
+                >
+                  <span className="w-2 h-2 rounded-full bg-red-500" />
+                  <span>Theme: {darkMode ? 'Dark Mode (Active)' : 'Light Mode (Active)'}</span>
+                  <span className="text-red-600 dark:text-red-400 font-bold ml-1">· Switch</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Directory Column 1 */}
@@ -55,10 +73,7 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-2 text-sm font-mono">
               <li>
                 <button
-                  onClick={() => {
-                    onSelectVehicleType('Car');
-                    onNavigateHome();
-                  }}
+                  onClick={() => onSelectVehicleType('Car')}
                   className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Supercars & GTs
@@ -66,10 +81,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => {
-                    onSelectVehicleType('Motorcycle');
-                    onNavigateHome();
-                  }}
+                  onClick={() => onSelectVehicleType('Motorcycle')}
                   className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Superbikes & Two-Strokes
@@ -77,10 +89,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => {
-                    onSelectCategory('Motorsport');
-                    onNavigateHome();
-                  }}
+                  onClick={() => onSelectCategory('Motorsport')}
                   className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Motorsport & Le Mans
@@ -88,13 +97,21 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => {
-                    onSelectCategory('Engineering');
-                    onNavigateHome();
-                  }}
+                  onClick={() => onSelectCategory('Engineering')}
                   className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
                 >
                   Dyno & Powertrains
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    onSelectCategory('All');
+                    onSelectVehicleType('All');
+                  }}
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                >
+                  Complete 10 Grid
                 </button>
               </li>
             </ul>

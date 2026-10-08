@@ -90,7 +90,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => {
                 onSelectVehicleType('All');
                 onSelectCategory('All');
-                onNavigateHome();
               }}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeCategory === 'All' && activeVehicleType === 'All'
@@ -98,14 +97,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
               }`}
             >
-              All Treats
+              All Dispatches
             </button>
 
             <button
-              onClick={() => {
-                onSelectVehicleType('Car');
-                onNavigateHome();
-              }}
+              onClick={() => onSelectVehicleType('Car')}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeVehicleType === 'Car'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -116,10 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
-              onClick={() => {
-                onSelectVehicleType('Motorcycle');
-                onNavigateHome();
-              }}
+              onClick={() => onSelectVehicleType('Motorcycle')}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeVehicleType === 'Motorcycle'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -130,10 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
-              onClick={() => {
-                onSelectCategory('Motorsport');
-                onNavigateHome();
-              }}
+              onClick={() => onSelectCategory('Motorsport')}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeCategory === 'Motorsport'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -144,10 +134,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
-              onClick={() => {
-                onSelectCategory('Engineering');
-                onNavigateHome();
-              }}
+              onClick={() => onSelectCategory('Engineering')}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeCategory === 'Engineering'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -240,11 +227,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Dark / Light Mode Toggle */}
             <button
               onClick={onToggleDarkMode}
-              className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800/60 transition-colors cursor-pointer"
+              className="px-2.5 py-1.5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-800/80 transition-all cursor-pointer flex items-center gap-1.5 text-xs font-mono"
               aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-              title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={darkMode ? 'Currently Dark Mode · Click for Light Mode' : 'Currently Light Mode · Click for Dark Mode'}
             >
-              {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-700" />}
+              {darkMode ? (
+                <>
+                  <Sun className="w-4 h-4 text-amber-400" />
+                  <span className="hidden lg:inline text-[11px] font-semibold">DARK</span>
+                </>
+              ) : (
+                <>
+                  <Moon className="w-4 h-4 text-zinc-800" />
+                  <span className="hidden lg:inline text-[11px] font-semibold">LIGHT</span>
+                </>
+              )}
             </button>
 
             {/* Mobile Menu Button */}
@@ -261,8 +258,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 pt-3 pb-6 space-y-2 animate-fadeIn font-mono text-xs uppercase">
+        <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 pt-3 pb-6 space-y-2 animate-fadeIn font-mono text-xs uppercase shadow-xl">
           
+          {/* Mobile Theme Toggle Button */}
+          <div className="pb-2 border-b border-zinc-200 dark:border-zinc-800">
+            <button
+              onClick={onToggleDarkMode}
+              className="w-full py-2.5 px-3 rounded-lg flex items-center justify-between border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white transition-colors cursor-pointer"
+            >
+              <span className="flex items-center gap-2">
+                {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-800 dark:text-zinc-200" />}
+                <span className="font-bold">THEME: {darkMode ? 'DARK MODE' : 'LIGHT MODE'}</span>
+              </span>
+              <span className="text-[11px] text-red-600 dark:text-red-400 font-bold underline">
+                SWITCH TO {darkMode ? 'LIGHT' : 'DARK'}
+              </span>
+            </button>
+          </div>
+
           {/* Mobile Mustang Start Trigger */}
           <div className="pb-2 border-b border-zinc-200 dark:border-zinc-800">
             <button
@@ -287,51 +300,62 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => handleNavClick(() => {
               onSelectVehicleType('All');
               onSelectCategory('All');
-              onNavigateHome();
             })}
-            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+            className={`w-full text-left py-2.5 px-3 rounded-lg transition-colors cursor-pointer ${
+              currentView === 'home' && activeCategory === 'All' && activeVehicleType === 'All'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+            }`}
           >
             All 10 Dispatches
           </button>
           <button
-            onClick={() => handleNavClick(() => {
-              onSelectVehicleType('Car');
-              onNavigateHome();
-            })}
-            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+            onClick={() => handleNavClick(() => onSelectVehicleType('Car'))}
+            className={`w-full text-left py-2.5 px-3 rounded-lg transition-colors cursor-pointer ${
+              currentView === 'home' && activeVehicleType === 'Car'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+            }`}
           >
             Supercars & Hypercars
           </button>
           <button
-            onClick={() => handleNavClick(() => {
-              onSelectVehicleType('Motorcycle');
-              onNavigateHome();
-            })}
-            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+            onClick={() => handleNavClick(() => onSelectVehicleType('Motorcycle'))}
+            className={`w-full text-left py-2.5 px-3 rounded-lg transition-colors cursor-pointer ${
+              currentView === 'home' && activeVehicleType === 'Motorcycle'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+            }`}
           >
             Motorcycles & Superbikes
           </button>
           <button
-            onClick={() => handleNavClick(() => {
-              onSelectCategory('Motorsport');
-              onNavigateHome();
-            })}
-            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+            onClick={() => handleNavClick(() => onSelectCategory('Motorsport'))}
+            className={`w-full text-left py-2.5 px-3 rounded-lg transition-colors cursor-pointer ${
+              currentView === 'home' && activeCategory === 'Motorsport'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+            }`}
           >
             Motorsport & Heritage
           </button>
           <button
-            onClick={() => handleNavClick(() => {
-              onSelectCategory('Engineering');
-              onNavigateHome();
-            })}
-            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+            onClick={() => handleNavClick(() => onSelectCategory('Engineering'))}
+            className={`w-full text-left py-2.5 px-3 rounded-lg transition-colors cursor-pointer ${
+              currentView === 'home' && activeCategory === 'Engineering'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+            }`}
           >
             Powertrain Engineering
           </button>
           <button
             onClick={() => handleNavClick(onOpenContact)}
-            className="w-full text-left py-2.5 px-3 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-red-600 dark:hover:text-red-400 transition-colors flex items-center justify-between"
+            className={`w-full text-left py-2.5 px-3 rounded-lg transition-colors flex items-center justify-between cursor-pointer ${
+              currentView === 'contact'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+            }`}
           >
             <span>Contact & Inquiries</span>
             <ArrowUpRight className="w-4 h-4 text-red-500" />

@@ -13,11 +13,16 @@ import { SlidersHorizontal, Flame, ArrowRight, Activity, Disc } from 'lucide-rea
 import cinematicBg from './assets/images/revtalks_cinematic_bg_1791385997218.jpg';
 
 export default function App() {
-  // Dark mode state: persists accurately in localStorage
+  // Dark mode state: initialized from localStorage or DOM class
   const [darkMode, setDarkMode] = useState<boolean>(() => {
-    const saved = localStorage.getItem('revtalks_theme');
-    if (saved) return saved === 'dark';
-    return true; // Default to sporty dark mode
+    try {
+      const saved = localStorage.getItem('revtalks_theme');
+      if (saved) return saved === 'dark';
+      return document.documentElement.classList.contains('dark') ||
+             !document.documentElement.classList.contains('light');
+    } catch {
+      return true; // Default to sporty dark mode
+    }
   });
 
   // Navigation & View State
@@ -42,92 +47,145 @@ export default function App() {
     }
   });
 
-  // Apply dark/light mode classes to html document root
+  // Apply dark/light mode classes to html document root synchronously
   useEffect(() => {
     const root = document.documentElement;
     if (darkMode) {
       root.classList.add('dark');
       root.classList.remove('light');
-      localStorage.setItem('revtalks_theme', 'dark');
+      root.setAttribute('data-theme', 'dark');
+      try {
+        localStorage.setItem('revtalks_theme', 'dark');
+      } catch {}
     } else {
       root.classList.remove('dark');
       root.classList.add('light');
-      localStorage.setItem('revtalks_theme', 'light');
+      root.setAttribute('data-theme', 'light');
+      try {
+        localStorage.setItem('revtalks_theme', 'light');
+      } catch {}
     }
   }, [darkMode]);
 
-  // Comprehensive URL Hash Router & Deep Linking
-  useEffect(() => {
-    const parseHash = () => {
-      const hash = window.location.hash.toLowerCase();
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      const root = document.documentElement;
+      if (next) {
+        root.classList.add('dark');
+        root.classList.remove('light');
+        root.setAttribute('data-theme', 'dark');
+        try {
+          localStorage.setItem('revtalks_theme', 'dark');
+        } catch {}
+      } else {
+        root.classList.remove('dark');
+        root.classList.add('light');
+        root.setAttribute('data-theme', 'light');
+        try {
+          localStorage.setItem('revtalks_theme', 'light');
+        } catch {}
+      }
+      return next;
+    });
+  };
 
-      // 1. Article view: #article/:slug
-      if (hash.startsWith('#article/')) {
-        const slug = hash.replace('#article/', '');
-        const found = ARTICLES.find((a) => a.slug.toLowerCase() === slug);
+  // Comprehensive URL Router (Pathname + Hash + PopState + Browser Back/Forward)
+  useEffect(() => {
+    const parseUrl = () => {
+      const rawPath = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
+      const rawHash = window.location.hash.toLowerCase().replace(/^#\/?/, '');
+
+      // Helper category map
+      const categoryMap: Record<string, Category> = {
+        supercars: 'Supercars',
+        superbikes: 'Superbikes',
+        motorsport: 'Motorsport',
+        engineering: 'Engineering',
+        heritage: 'Heritage',
+      };
+
+      // 1. Article view: /article/:slug or #article/:slug
+      let articleSlug = '';
+      if (rawPath.startsWith('article/')) {
+        articleSlug = rawPath.replace('article/', '');
+      } else if (rawHash.startsWith('article/')) {
+        articleSlug = rawHash.replace('article/', '');
+      }
+
+      if (articleSlug) {
+        const found = ARTICLES.find((a) => a.slug.toLowerCase() === articleSlug);
         if (found) {
           setSelectedArticle(found);
           setCurrentView('article');
+          document.title = `${found.title} — Rev Talks`;
           return;
         }
       }
 
-      // 2. Contact view: #contact
-      if (hash === '#contact') {
+      // 2. Contact view: /contact or #contact
+      if (rawPath === 'contact' || rawHash === 'contact') {
         setCurrentView('contact');
         setSelectedArticle(null);
+        document.title = 'Contact & Inquiries — Rev Talks';
         return;
       }
 
-      // 3. Category filter: #category/:cat
-      if (hash.startsWith('#category/')) {
-        const catSlug = hash.replace('#category/', '');
-        const categoryMap: Record<string, Category> = {
-          supercars: 'Supercars',
-          superbikes: 'Superbikes',
-          motorsport: 'Motorsport',
-          engineering: 'Engineering',
-          heritage: 'Heritage',
-        };
+      // 3. Category / Vehicle type: /category/:slug or #category/:slug
+      let catSlug = '';
+      if (rawPath.startsWith('category/')) {
+        catSlug = rawPath.replace('category/', '');
+      } else if (rawHash.startsWith('category/')) {
+        catSlug = rawHash.replace('category/', '');
+      } else if (rawHash.startsWith('type/')) {
+        catSlug = rawHash.replace('type/', '');
+      }
 
+      if (catSlug) {
+        if (catSlug === 'car' || catSlug === 'cars') {
+          setActiveVehicleType('Car');
+          setActiveCategory('All');
+          setCurrentView('home');
+          setSelectedArticle(null);
+          document.title = 'Supercars & GTs — Rev Talks';
+          return;
+        }
+        if (catSlug === 'motorcycle' || catSlug === 'motorcycles' || catSlug === 'bikes') {
+          setActiveVehicleType('Motorcycle');
+          setActiveCategory('All');
+          setCurrentView('home');
+          setSelectedArticle(null);
+          document.title = 'Superbikes & Two-Strokes — Rev Talks';
+          return;
+        }
         if (categoryMap[catSlug]) {
-          setActiveCategory(categoryMap[catSlug]);
+          const mappedCat = categoryMap[catSlug];
+          setActiveCategory(mappedCat);
           setActiveVehicleType('All');
           setCurrentView('home');
           setSelectedArticle(null);
+          document.title = `${mappedCat} Dispatches — Rev Talks`;
           return;
         }
       }
 
-      // 4. Machine class filter: #type/:type
-      if (hash.startsWith('#type/')) {
-        const typeSlug = hash.replace('#type/', '');
-        if (typeSlug === 'car' || typeSlug === 'cars') {
-          setActiveVehicleType('Car');
-          setCurrentView('home');
-          setSelectedArticle(null);
-          return;
-        }
-        if (typeSlug === 'motorcycle' || typeSlug === 'motorcycles' || typeSlug === 'bikes') {
-          setActiveVehicleType('Motorcycle');
-          setCurrentView('home');
-          setSelectedArticle(null);
-          return;
-        }
-      }
-
-      // 5. Default Home view: #home or empty
+      // 4. Default Home view
       setCurrentView('home');
       setSelectedArticle(null);
-      if (hash === '' || hash === '#' || hash === '#home') {
+      if (rawPath === '' && (rawHash === '' || rawHash === 'home')) {
         setActiveCategory('All');
         setActiveVehicleType('All');
       }
+      document.title = 'Rev Talks — The Automotive Journal';
     };
 
-    parseHash();
-    window.addEventListener('hashchange', parseHash);
-    return () => window.removeEventListener('hashchange', parseHash);
+    parseUrl();
+    window.addEventListener('popstate', parseUrl);
+    window.addEventListener('hashchange', parseUrl);
+    return () => {
+      window.removeEventListener('popstate', parseUrl);
+      window.removeEventListener('hashchange', parseUrl);
+    };
   }, []);
 
   // Keyboard shortcut: Cmd+K / Ctrl+K for search
@@ -142,15 +200,21 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+  // URL State Transition Handlers (Updates address bar URL and history stack)
+  const pushUrl = (url: string, title?: string) => {
+    try {
+      window.history.pushState(null, '', url);
+      if (title) document.title = title;
+    } catch {
+      // Fallback if pushState is restricted
+      window.location.hash = url;
+    }
   };
 
-  // URL State Transition Handlers
   const handleSelectArticle = (article: Article) => {
     setSelectedArticle(article);
     setCurrentView('article');
-    window.location.hash = `#article/${article.slug}`;
+    pushUrl(`/article/${article.slug}`, `${article.title} — Rev Talks`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -159,7 +223,7 @@ export default function App() {
     setSelectedArticle(null);
     setActiveCategory('All');
     setActiveVehicleType('All');
-    window.location.hash = '#home';
+    pushUrl('/', 'Rev Talks — The Automotive Journal');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -169,32 +233,32 @@ export default function App() {
     setCurrentView('home');
     setSelectedArticle(null);
     if (cat === 'All') {
-      window.location.hash = '#home';
+      pushUrl('/', 'Rev Talks — The Automotive Journal');
     } else {
-      window.location.hash = `#category/${cat.toLowerCase()}`;
+      pushUrl(`/category/${cat.toLowerCase()}`, `${cat} Dispatches — Rev Talks`);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectVehicleType = (vt: VehicleType | 'All') => {
     setActiveVehicleType(vt);
+    setActiveCategory('All');
     setCurrentView('home');
     setSelectedArticle(null);
     if (vt === 'All') {
-      if (activeCategory === 'All') {
-        window.location.hash = '#home';
-      } else {
-        window.location.hash = `#category/${activeCategory.toLowerCase()}`;
-      }
+      pushUrl('/', 'Rev Talks — The Automotive Journal');
+    } else if (vt === 'Car') {
+      pushUrl('/category/cars', 'Supercars & GTs — Rev Talks');
     } else {
-      window.location.hash = `#type/${vt.toLowerCase()}`;
+      pushUrl('/category/motorcycles', 'Superbikes & Two-Strokes — Rev Talks');
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleOpenContact = () => {
     setCurrentView('contact');
     setSelectedArticle(null);
-    window.location.hash = '#contact';
+    pushUrl('/contact', 'Contact & Inquiries — Rev Talks');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -227,10 +291,10 @@ export default function App() {
   const gridArticles = filteredArticles;
 
   return (
-    <div className="min-h-screen bg-stone-100 dark:bg-black text-zinc-900 dark:text-zinc-100 font-sans selection:bg-red-500/30 selection:text-red-200 transition-colors duration-200 flex flex-col relative overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 font-sans selection:bg-red-500/30 selection:text-red-200 transition-colors duration-200 flex flex-col relative overflow-x-hidden">
       
       {/* =========================================================================
-          CINEMATIC CARS & BIKES ATMOSPHERIC BACKGROUND SYSTEM (LIGHT & DARK ADAPTIVE)
+          CINEMATIC CARS & BIKES ATMOSPHERIC BACKGROUND SYSTEM (PURE WHITE LIGHT / DEEP BLACK DARK)
          ========================================================================= */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden transition-opacity duration-300">
         {/* Cinematic Backdrop Image */}
@@ -238,17 +302,17 @@ export default function App() {
           src={cinematicBg}
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-cover object-center opacity-15 dark:opacity-35 scale-105 transform mix-blend-multiply dark:mix-blend-screen contrast-125 filter blur-[0.5px]"
+          className="w-full h-full object-cover object-center opacity-10 dark:opacity-35 scale-105 transform mix-blend-multiply dark:mix-blend-screen contrast-125 filter blur-[0.5px]"
         />
 
-        {/* Dynamic Theme Scrim */}
-        <div className="absolute inset-0 bg-gradient-to-b from-stone-100/90 via-stone-100/95 to-stone-200/95 dark:from-black/80 dark:via-zinc-950/90 dark:to-black pointer-events-none" />
+        {/* Dynamic Theme Scrim: Crisp White in Light Mode, Midnight Black in Dark Mode */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/98 to-white dark:from-black/80 dark:via-zinc-950/90 dark:to-black pointer-events-none" />
 
         {/* Racing Circuit Grid Lines Graphic Overlay */}
-        <div className="absolute inset-0 bg-circuit-grid opacity-20 dark:opacity-35 pointer-events-none" />
+        <div className="absolute inset-0 bg-circuit-grid opacity-15 dark:opacity-35 pointer-events-none" />
 
         {/* Ambient Redline Glow Accents */}
-        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-red-600/10 dark:bg-red-600/15 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-red-600/5 dark:bg-red-600/15 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-2/3 -right-20 w-[600px] h-[600px] bg-rose-600/5 dark:bg-rose-600/10 rounded-full blur-[140px] pointer-events-none" />
       </div>
 
@@ -492,6 +556,8 @@ export default function App() {
         onSelectVehicleType={handleSelectVehicleType}
         onOpenContact={handleOpenContact}
         onNavigateHome={handleNavigateHome}
+        darkMode={darkMode}
+        onToggleDarkMode={toggleDarkMode}
       />
     </div>
   );
