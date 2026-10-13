@@ -94,8 +94,19 @@ export default function App() {
   // Comprehensive URL Router (Pathname + Hash + PopState + Browser Back/Forward)
   useEffect(() => {
     const parseUrl = () => {
-      const rawPath = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
-      const rawHash = window.location.hash.toLowerCase().replace(/^#\/?/, '');
+      // Automatically scrub any -7ov5 artifacts from URL address bar
+      if (window.location.pathname.includes('-7ov5') || window.location.hash.includes('-7ov5') || window.location.search.includes('-7ov5')) {
+        const cleanPath = window.location.pathname.replace(/-7ov5/gi, '');
+        const cleanHash = window.location.hash.replace(/-7ov5/gi, '');
+        const cleanSearch = window.location.search.replace(/-7ov5/gi, '');
+        const cleaned = `${cleanPath || '/'}${cleanSearch}${cleanHash}`;
+        try {
+          window.history.replaceState(null, '', cleaned);
+        } catch {}
+      }
+
+      const rawPath = window.location.pathname.toLowerCase().replace(/-7ov5/g, '').replace(/^\/+|\/+$/g, '');
+      const rawHash = window.location.hash.toLowerCase().replace(/-7ov5/g, '').replace(/^#\/?/, '');
 
       // Helper category map
       const categoryMap: Record<string, Category> = {
@@ -208,12 +219,13 @@ export default function App() {
 
   // URL State Transition Handlers (Updates address bar URL and history stack)
   const pushUrl = (url: string, title?: string) => {
+    const cleanUrl = url.replace(/-7ov5/gi, '');
     try {
-      window.history.pushState(null, '', url);
+      window.history.pushState(null, '', cleanUrl);
       if (title) document.title = title;
     } catch {
       // Fallback if pushState is restricted
-      window.location.hash = url;
+      window.location.hash = cleanUrl;
     }
   };
 

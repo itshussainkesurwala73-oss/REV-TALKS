@@ -1,5 +1,12 @@
 {
   "framework": "vite",
+  "redirects": [
+    {
+      "source": "/(.*)-7ov5(.*)",
+      "destination": "/$1$2",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

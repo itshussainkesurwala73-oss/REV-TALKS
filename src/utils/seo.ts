@@ -136,7 +136,8 @@ export function updatePageMetadata(seo: PageSEO, article?: Article) {
   setMeta('name', 'keywords', `${seo.mainKeyword}, ${seo.relatedKeywords[0]}, ${seo.relatedKeywords[1]}, Rev Talks, automotive engineering`);
 
   // 3. OpenGraph Tags
-  const fullUrl = `${window.location.origin}${seo.canonicalPath}`;
+  const cleanCanonicalPath = seo.canonicalPath.replace(/-7ov5/gi, '');
+  const fullUrl = `${window.location.origin.replace(/-7ov5/gi, '')}${cleanCanonicalPath}`;
   setMeta('property', 'og:title', seo.pageTitle);
   setMeta('property', 'og:description', seo.metaDescription);
   setMeta('property', 'og:url', fullUrl);
