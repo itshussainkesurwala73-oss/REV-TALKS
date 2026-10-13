@@ -17,6 +17,14 @@ export interface ArticleSection {
   };
 }
 
+export interface PageSEO {
+  mainKeyword: string;
+  relatedKeywords: [string, string];
+  pageTitle: string;
+  metaDescription: string;
+  canonicalPath: string;
+}
+
 export interface Article {
   id: string;
   slug: string;
@@ -31,6 +39,7 @@ export interface Article {
   publishedDate: string;
   readTimeMinutes: number;
   heroImage: string;
+  imageAlt?: string;
   imageCaption: string;
   photographerCredit: string;
   keySpecs: KeySpec[];
@@ -39,6 +48,7 @@ export interface Article {
   tags: string[];
   historicalEra: string;
   featured?: boolean;
+  seo?: PageSEO;
 }
 
 export interface ContactFormData {

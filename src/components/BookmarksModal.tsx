@@ -66,9 +66,12 @@ export const BookmarksModal: React.FC<BookmarksModalProps> = ({
                 key={article.id}
                 className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-black/50 flex items-start justify-between gap-3 group hover:border-red-500/50 transition-colors"
               >
-                <div
-                  className="flex-1 cursor-pointer"
-                  onClick={() => {
+                <a
+                  href={`/article/${article.slug}`}
+                  className="flex-1 cursor-pointer block"
+                  aria-label={`Read technical treatise: ${article.title}`}
+                  onClick={(e) => {
+                    e.preventDefault();
                     onSelectArticle(article);
                     onClose();
                   }}
@@ -84,7 +87,7 @@ export const BookmarksModal: React.FC<BookmarksModalProps> = ({
                   <h4 className="font-display text-sm font-bold text-zinc-950 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors line-clamp-1">
                     {article.title}
                   </h4>
-                </div>
+                </a>
 
                 <div className="flex items-center gap-2 pt-1">
                   <button

@@ -93,13 +93,16 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             </div>
           ) : (
             filteredArticles.map((article) => (
-              <div
+              <a
                 key={article.id}
-                onClick={() => {
+                href={`/article/${article.slug}`}
+                onClick={(e) => {
+                  e.preventDefault();
                   onSelectArticle(article);
                   onClose();
                 }}
-                className="py-3 px-3 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60 cursor-pointer group transition-colors"
+                aria-label={`Read technical treatise: ${article.title}`}
+                className="block py-3 px-3 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60 cursor-pointer group transition-colors"
               >
                 <div className="flex items-center gap-2 text-[11px] font-mono uppercase text-zinc-500 dark:text-zinc-400 mb-1">
                   <span className="text-red-600 dark:text-red-500 font-bold">{article.category}</span>
@@ -120,7 +123,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 line-clamp-1 mt-1">
                   {article.excerpt}
                 </p>
-              </div>
+              </a>
             ))
           )}
         </div>

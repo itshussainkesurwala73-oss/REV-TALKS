@@ -64,10 +64,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           
           {/* Zone 1: Sporty Wordmark */}
           <div className="flex items-center gap-5">
-            <button
-              onClick={onNavigateHome}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateHome();
+              }}
               className="text-left group flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded cursor-pointer"
-              aria-label="Rev Talks Home"
+              aria-label="Rev Talks - Automotive Engineering & Supercar Journal Home"
             >
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-rose-700 flex items-center justify-center text-white shadow-md shadow-red-600/30 group-hover:scale-105 transition-transform">
                 <Gauge className="w-4 h-4" />
@@ -77,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   REV <span className="text-red-600 dark:text-red-500 font-extrabold">TALKS</span>
                 </span>
               </div>
-            </button>
+            </a>
             <span className="hidden xl:inline text-[11px] font-mono tracking-widest uppercase text-zinc-500 dark:text-zinc-400 border-l border-zinc-200 dark:border-zinc-800 pl-4 flex items-center gap-1.5">
               <Zap className="w-3 h-3 text-red-500 fill-current" />
               10 High-Octane Machines
@@ -86,8 +90,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Zone 2: Navigation Links */}
           <nav className="hidden md:flex items-center gap-6 text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-300">
-            <button
-              onClick={() => {
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
                 onSelectVehicleType('All');
                 onSelectCategory('All');
               }}
@@ -98,10 +104,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               All Dispatches
-            </button>
+            </a>
 
-            <button
-              onClick={() => onSelectVehicleType('Car')}
+            <a
+              href="/category/supercars"
+              onClick={(e) => {
+                e.preventDefault();
+                onSelectVehicleType('Car');
+              }}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeVehicleType === 'Car'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -109,10 +119,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               Supercars
-            </button>
+            </a>
 
-            <button
-              onClick={() => onSelectVehicleType('Motorcycle')}
+            <a
+              href="/category/superbikes"
+              onClick={(e) => {
+                e.preventDefault();
+                onSelectVehicleType('Motorcycle');
+              }}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeVehicleType === 'Motorcycle'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -120,10 +134,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               Superbikes
-            </button>
+            </a>
 
-            <button
-              onClick={() => onSelectCategory('Motorsport')}
+            <a
+              href="/category/motorsport"
+              onClick={(e) => {
+                e.preventDefault();
+                onSelectCategory('Motorsport');
+              }}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeCategory === 'Motorsport'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -131,10 +149,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               Motorsport
-            </button>
+            </a>
 
-            <button
-              onClick={() => onSelectCategory('Engineering')}
+            <a
+              href="/category/engineering"
+              onClick={(e) => {
+                e.preventDefault();
+                onSelectCategory('Engineering');
+              }}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'home' && activeCategory === 'Engineering'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -142,10 +164,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               Engineering
-            </button>
+            </a>
 
-            <button
-              onClick={onOpenContact}
+            <a
+              href="/contact"
+              onClick={(e) => {
+                e.preventDefault();
+                onOpenContact();
+              }}
               className={`hover:text-zinc-950 dark:hover:text-white transition-all py-1 border-b-2 cursor-pointer ${
                 currentView === 'contact'
                   ? 'border-red-500 text-zinc-950 dark:text-white font-bold'
@@ -153,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               Contact
-            </button>
+            </a>
           </nav>
 
           {/* Zone 3: Actions + Mustang V8 Start Audio Toggle */}

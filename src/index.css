@@ -189,6 +189,18 @@ html.dark,
   animation: kerbSlide 0.25s infinite linear;
 }
 
+.h2r-kerb-anim {
+  background: repeating-linear-gradient(
+    -45deg,
+    #16A34A,
+    #16A34A 12px,
+    #FAFAFA 12px,
+    #FAFAFA 24px
+  );
+  background-size: 24px 100%;
+  animation: kerbSlide 0.22s infinite linear;
+}
+
 @keyframes kerbSlide {
   0% { background-position: 0 0; }
   100% { background-position: -20px 0; }

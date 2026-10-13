@@ -72,47 +72,65 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
             <ul className="space-y-2 text-sm font-mono">
               <li>
-                <button
-                  onClick={() => onSelectVehicleType('Car')}
-                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                <a
+                  href="/category/supercars"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectVehicleType('Car');
+                  }}
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400 block"
                 >
                   Supercars & GTs
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectVehicleType('Motorcycle')}
-                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                <a
+                  href="/category/superbikes"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectVehicleType('Motorcycle');
+                  }}
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400 block"
                 >
                   Superbikes & Two-Strokes
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectCategory('Motorsport')}
-                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                <a
+                  href="/category/motorsport"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectCategory('Motorsport');
+                  }}
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400 block"
                 >
                   Motorsport & Le Mans
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectCategory('Engineering')}
-                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                <a
+                  href="/category/engineering"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectCategory('Engineering');
+                  }}
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400 block"
                 >
                   Dyno & Powertrains
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => {
+                <a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
                     onSelectCategory('All');
                     onSelectVehicleType('All');
                   }}
-                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400 block"
                 >
-                  Complete 10 Grid
-                </button>
+                  Complete 10 Machine Grid
+                </a>
               </li>
             </ul>
           </div>
@@ -125,28 +143,40 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
             <ul className="space-y-2 text-sm font-mono">
               <li>
-                <button
-                  onClick={onOpenContact}
-                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                <a
+                  href="/contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onOpenContact();
+                  }}
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400 block"
                 >
-                  Letters to Rev Talks
-                </button>
+                  Letters to Rev Talks Editorial
+                </a>
               </li>
               <li>
-                <button
-                  onClick={onOpenContact}
-                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                <a
+                  href="/contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onOpenContact();
+                  }}
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400 block"
                 >
                   Technical Dyno Note & Fact Check
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={onOpenContact}
-                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+                <a
+                  href="/contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onOpenContact();
+                  }}
+                  className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400 block"
                 >
                   Media & High-Res Schematics
-                </button>
+                </a>
               </li>
             </ul>
             <div className="pt-2 text-xs font-mono text-zinc-500">

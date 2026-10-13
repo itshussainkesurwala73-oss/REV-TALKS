@@ -10,6 +10,7 @@ import { BookmarksModal } from './components/BookmarksModal';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
 import { CarLoader } from './components/CarLoader';
+import { STATIC_PAGE_SEO, getArticleSEO, updatePageMetadata } from './utils/seo';
 import { SlidersHorizontal, Flame, ArrowRight, Activity, Disc } from 'lucide-react';
 import cinematicBg from './assets/images/revtalks_cinematic_bg_1791385997218.jpg';
 
@@ -126,7 +127,7 @@ export default function App() {
           setCurrentView('article');
           setLoadingMessage(found.title.length > 32 ? found.title.slice(0, 32) + '...' : found.title);
           setLoadingSubmessage(`Reading dispatch · ${found.category}`);
-          document.title = `${found.title} — Rev Talks`;
+          updatePageMetadata(getArticleSEO(found), found);
           return;
         }
       }
@@ -135,16 +136,20 @@ export default function App() {
       if (rawPath === 'contact' || rawHash === 'contact') {
         setCurrentView('contact');
         setSelectedArticle(null);
-        document.title = 'Contact & Inquiries — Rev Talks';
+        updatePageMetadata(STATIC_PAGE_SEO['contact']);
         return;
       }
 
-      // 3. Category / Vehicle type: /category/:slug or #category/:slug
+      // 3. Category / Vehicle type: /category/:slug or /vehicles/:type
       let catSlug = '';
       if (rawPath.startsWith('category/')) {
         catSlug = rawPath.replace('category/', '');
+      } else if (rawPath.startsWith('vehicles/')) {
+        catSlug = rawPath.replace('vehicles/', '');
       } else if (rawHash.startsWith('category/')) {
         catSlug = rawHash.replace('category/', '');
+      } else if (rawHash.startsWith('vehicles/')) {
+        catSlug = rawHash.replace('vehicles/', '');
       } else if (rawHash.startsWith('type/')) {
         catSlug = rawHash.replace('type/', '');
       }
@@ -155,7 +160,7 @@ export default function App() {
           setActiveCategory('All');
           setCurrentView('home');
           setSelectedArticle(null);
-          document.title = 'Supercars & GTs — Rev Talks';
+          updatePageMetadata(STATIC_PAGE_SEO['vehicles-cars']);
           return;
         }
         if (catSlug === 'motorcycle' || catSlug === 'motorcycles' || catSlug === 'bikes') {
@@ -163,7 +168,7 @@ export default function App() {
           setActiveCategory('All');
           setCurrentView('home');
           setSelectedArticle(null);
-          document.title = 'Superbikes & Two-Strokes — Rev Talks';
+          updatePageMetadata(STATIC_PAGE_SEO['vehicles-motorcycles']);
           return;
         }
         if (categoryMap[catSlug]) {
@@ -172,7 +177,8 @@ export default function App() {
           setActiveVehicleType('All');
           setCurrentView('home');
           setSelectedArticle(null);
-          document.title = `${mappedCat} Dispatches — Rev Talks`;
+          const catSeo = STATIC_PAGE_SEO[`category-${catSlug}`] || STATIC_PAGE_SEO['home'];
+          updatePageMetadata(catSeo);
           return;
         }
       }
@@ -184,7 +190,7 @@ export default function App() {
         setActiveCategory('All');
         setActiveVehicleType('All');
       }
-      document.title = 'Rev Talks — The Automotive Journal';
+      updatePageMetadata(STATIC_PAGE_SEO['home']);
     };
 
     parseUrl();
@@ -233,7 +239,9 @@ export default function App() {
     setIsLoading(true);
     setSelectedArticle(article);
     setCurrentView('article');
-    pushUrl(`/article/${article.slug}`, `${article.title} — Rev Talks`);
+    const articleSeo = getArticleSEO(article);
+    pushUrl(articleSeo.canonicalPath, articleSeo.pageTitle);
+    updatePageMetadata(articleSeo, article);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
       setIsLoading(false);
@@ -245,7 +253,9 @@ export default function App() {
     setSelectedArticle(null);
     setActiveCategory('All');
     setActiveVehicleType('All');
-    pushUrl('/', 'Rev Talks — The Automotive Journal');
+    const homeSeo = STATIC_PAGE_SEO['home'];
+    pushUrl(homeSeo.canonicalPath, homeSeo.pageTitle);
+    updatePageMetadata(homeSeo);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -255,9 +265,13 @@ export default function App() {
     setCurrentView('home');
     setSelectedArticle(null);
     if (cat === 'All') {
-      pushUrl('/', 'Rev Talks — The Automotive Journal');
+      const homeSeo = STATIC_PAGE_SEO['home'];
+      pushUrl(homeSeo.canonicalPath, homeSeo.pageTitle);
+      updatePageMetadata(homeSeo);
     } else {
-      pushUrl(`/category/${cat.toLowerCase()}`, `${cat} Dispatches — Rev Talks`);
+      const catSeo = STATIC_PAGE_SEO[`category-${cat.toLowerCase()}`] || STATIC_PAGE_SEO['home'];
+      pushUrl(catSeo.canonicalPath, catSeo.pageTitle);
+      updatePageMetadata(catSeo);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -268,11 +282,17 @@ export default function App() {
     setCurrentView('home');
     setSelectedArticle(null);
     if (vt === 'All') {
-      pushUrl('/', 'Rev Talks — The Automotive Journal');
+      const homeSeo = STATIC_PAGE_SEO['home'];
+      pushUrl(homeSeo.canonicalPath, homeSeo.pageTitle);
+      updatePageMetadata(homeSeo);
     } else if (vt === 'Car') {
-      pushUrl('/category/cars', 'Supercars & GTs — Rev Talks');
+      const carSeo = STATIC_PAGE_SEO['vehicles-cars'];
+      pushUrl(carSeo.canonicalPath, carSeo.pageTitle);
+      updatePageMetadata(carSeo);
     } else {
-      pushUrl('/category/motorcycles', 'Superbikes & Two-Strokes — Rev Talks');
+      const bikeSeo = STATIC_PAGE_SEO['vehicles-motorcycles'];
+      pushUrl(bikeSeo.canonicalPath, bikeSeo.pageTitle);
+      updatePageMetadata(bikeSeo);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -280,7 +300,9 @@ export default function App() {
   const handleOpenContact = () => {
     setCurrentView('contact');
     setSelectedArticle(null);
-    pushUrl('/contact', 'Contact & Inquiries — Rev Talks');
+    const contactSeo = STATIC_PAGE_SEO['contact'];
+    pushUrl(contactSeo.canonicalPath, contactSeo.pageTitle);
+    updatePageMetadata(contactSeo);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

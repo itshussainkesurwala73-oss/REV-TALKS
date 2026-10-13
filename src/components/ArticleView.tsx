@@ -246,8 +246,10 @@ export const ArticleView: React.FC<ArticleViewProps> = ({
           <div className="overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-xl relative group">
             <img
               src={article.heroImage}
-              alt={article.title}
+              alt={article.imageAlt || article.imageCaption || `${article.title} - Rev Talks`}
               referrerPolicy="no-referrer"
+              loading="eager"
+              decoding="async"
               className="w-full h-auto aspect-16/9 object-cover contrast-105"
             />
             <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-red-600 to-amber-500" />
@@ -372,29 +374,42 @@ export const ArticleView: React.FC<ArticleViewProps> = ({
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedArticles.map((rel) => (
-                <div
+                <a
                   key={rel.id}
-                  onClick={() => onSelectArticle(rel)}
-                  className="group cursor-pointer p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-red-500/60 bg-white dark:bg-zinc-900/50 transition-all hover:shadow-lg"
+                  href={`/article/${rel.slug}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectArticle(rel);
+                  }}
+                  aria-label={`Read technical treatise: ${rel.title}`}
+                  className="group cursor-pointer p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-red-500/60 bg-white dark:bg-zinc-900/50 transition-all hover:shadow-lg flex flex-col justify-between"
                 >
-                  <div className="aspect-16/10 overflow-hidden rounded-lg mb-3 bg-zinc-100 dark:bg-zinc-950">
-                    <img
-                      src={rel.heroImage}
-                      alt={rel.title}
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div>
+                    <div className="aspect-16/10 overflow-hidden rounded-lg mb-3 bg-zinc-100 dark:bg-zinc-950">
+                      <img
+                        src={rel.heroImage}
+                        alt={rel.imageAlt || rel.imageCaption || `${rel.title} - Rev Talks`}
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="text-[11px] font-mono uppercase text-red-600 dark:text-red-400 font-bold mb-1">
+                      {rel.category} · {rel.vehicleType}
+                    </div>
+                    <h4 className="font-display text-base font-bold text-zinc-950 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors line-clamp-2">
+                      {rel.title}
+                    </h4>
+                    <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2 line-clamp-2">
+                      {rel.excerpt}
+                    </p>
                   </div>
-                  <div className="text-[11px] font-mono uppercase text-red-600 dark:text-red-400 font-bold mb-1">
-                    {rel.category} · {rel.vehicleType}
+                  <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 text-xs font-mono font-semibold text-red-600 dark:text-red-400 flex items-center gap-1 group-hover:underline">
+                    <span>Read Treatise</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <h4 className="font-display text-base font-bold text-zinc-950 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors line-clamp-2">
-                    {rel.title}
-                  </h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2 line-clamp-2">
-                    {rel.excerpt}
-                  </p>
-                </div>
+                </a>
               ))}
             </div>
           </section>

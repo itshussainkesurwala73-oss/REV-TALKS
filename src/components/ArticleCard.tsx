@@ -35,9 +35,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           {!imageError ? (
             <img
               src={article.heroImage}
-              alt={article.title}
+              alt={article.imageAlt || article.imageCaption || `${article.title} - Rev Talks`}
               referrerPolicy="no-referrer"
               loading="lazy"
+              decoding="async"
               onLoad={() => setImageLoaded(true)}
               onError={() => setImageError(true)}
               className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-hover:contrast-105 ${
@@ -116,13 +117,18 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           <span>{article.publishedDate}</span>
         </div>
 
-        <button
-          onClick={() => onSelect(article)}
+        <a
+          href={`/article/${article.slug}`}
+          onClick={(e) => {
+            e.preventDefault();
+            onSelect(article);
+          }}
+          aria-label={`Read technical treatise: ${article.title}`}
           className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-zinc-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors font-semibold cursor-pointer"
         >
-          <span>Read Dispatch</span>
+          <span>Read Technical Dispatch</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-red-500" />
-        </button>
+        </a>
       </div>
     </article>
   );

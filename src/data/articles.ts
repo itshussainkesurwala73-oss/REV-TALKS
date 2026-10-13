@@ -28,9 +28,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'October 2026',
     readTimeMinutes: 7,
     heroImage: mclarenF1Img,
+    imageAlt: '1993 McLaren F1 supercar in Magnesium Silver showing the aerodynamic central carbon monocoque cockpit and gold-shielded engine bay',
     imageCaption: '1993 McLaren F1 Chassis in Magnesium Silver, displaying the central monocoque silhouette that redefined lightweight composites.',
     photographerCredit: 'Rev Talks Technical Collection',
     historicalEra: '1992–1998',
+    seo: {
+      canonicalPath: '/article/mclaren-f1-gordon-murray-atmospheric-purity',
+      mainKeyword: 'McLaren F1 engineering review',
+      relatedKeywords: ['BMW S70/2 V12 engine', 'carbon monocoque analog supercar'],
+      pageTitle: 'McLaren F1 Technical Review: Gordon Murray’s Zenith | Rev Talks',
+      metaDescription: 'Read the comprehensive technical review of the McLaren F1. Explore Gordon Murray’s central seating, BMW S70/2 V12 powertrain, and 240.1 mph record at Rev Talks.',
+    },
     tags: ['Gordon Murray', 'BMW S70/2', 'Carbon Monocoque', 'Naturally Aspirated', 'Analog Driving'],
     keySpecs: [
       { label: 'Powertrain', value: '6.1L BMW S70/2 60° V12' },
@@ -42,20 +50,20 @@ export const ARTICLES: Article[] = [
     excerpt: 'Gordon Murray designed the McLaren F1 not to break records, but to deliver the ultimate visceral driver interface. Without power steering, ABS, or turbos, it ended up setting a production speed benchmark that stands unbroken for naturally aspirated cars.',
     sections: [
       {
-        heading: 'A Departure from Supercar Orthodoxy',
+        heading: 'Why Does the McLaren F1 Use a Central Driving Position?',
         content: [
+          'The McLaren F1 features an iconic central driving position where the pilot sits dead-center, flanked slightly rearward by two passenger seats. Gordon Murray designed this layout to position the driver equidistant between both front wheel arches, completely eliminating visual parallax error when placing tires on a high-speed corner apex while maintaining ideal lateral weight distribution regardless of passenger occupancy.',
           'In the late 1980s, supercar design was descending into cosmetic excess. Heavy all-wheel-drive systems, twin turbos with massive lag, and wide cosmetic side strakes defined the era. Waiting for a flight back from the 1988 Italian Grand Prix at Milan’s Linate Airport, Formula 1 designer Gordon Murray sketched a radical manifesto on a napkin for Mansour Ojjeh and Ron Dennis.',
-          'His premise was mercilessly pure: build a three-seat road car centered entirely on the driver, weighing strictly under 1,140 kilograms, with zero electronic intervention between throttle pedal, steering rack, and asphalt.',
-          'To achieve this target, Murray pioneered the world’s first full carbon-fiber-reinforced polymer (CFRP) monocoque for a production vehicle. The monocoque weighed just 100 kg, possessing structural rigidity that surpassed contemporary racing chassis.'
+          'To achieve his strict 1,140-kilogram target, Murray pioneered the world’s first full carbon-fiber-reinforced polymer (CFRP) monocoque for a production vehicle. The monocoque weighed just 100 kg, possessing structural rigidity that surpassed contemporary racing chassis.'
         ],
         quote: 'I wanted the driver to sit in the center, equidistant from both wheelarches, experiencing zero parallax error when placing the tires on an apex.'
       },
       {
-        heading: 'The BMW S70/2 V12: Paul Rosche’s Masterwork',
+        heading: 'How Does the BMW S70/2 Naturally Aspirated V12 Engine Perform?',
         content: [
-          'Murray initially approached Honda to build a 4.5-liter V10 or V12 engine based on their dominant Formula 1 relationship. When Honda declined, Murray turned to legendary BMW Motorsport engine architect Paul Rosche.',
-          'Murray handed Rosche an exacting brief: the engine must be naturally aspirated for immediate throttle response, rev beyond 7,500 rpm, produce over 550 horsepower, and measure no more than 600 mm in length.',
-          'Rosche delivered the S70/2: a 6,064 cc 60-degree quad-cam V12 delivering 618 horsepower and 479 lb-ft of torque. Because exhaust temperatures under full throttle reached blistering thresholds, Murray lined the engine bay with 16 grams of pure gold leaf foil, the most effective radiant heat reflector known to physics.'
+          'The BMW S70/2 is a 6,064 cc 60-degree quad-cam naturally aspirated V12 producing 618 brake horsepower at 7,400 rpm and 479 lb-ft of torque. Engineered by Paul Rosche, it delivers instantaneous linear throttle response without the latency or muffling of turbochargers, revving past 7,500 rpm with laser precision.',
+          'Murray initially approached Honda to build a 4.5-liter V10 or V12 engine based on their dominant Formula 1 relationship. When Honda declined, Murray turned to legendary BMW Motorsport engine architect Paul Rosche with an exacting brief: atmospheric induction, over 550 horsepower, and a total engine length under 600 mm.',
+          'Because exhaust temperatures under full throttle reached blistering thresholds, Murray lined the engine bay with 16 grams of pure gold leaf foil, the most effective radiant heat reflector known to physics.'
         ],
         callout: {
           title: 'Mechanical Highlight: The Ground-Plane Aerodynamics',
@@ -63,7 +71,7 @@ export const ARTICLES: Article[] = [
         }
       },
       {
-        heading: 'Why It Remains Untouchable',
+        heading: 'Why Does Chassis XP5 Remain Untouchable in Modern Hypercar History?',
         content: [
           'On March 31, 1998, Andy Wallace took McLaren F1 prototype XP5 to the Volkswagen Ehra-Lessien high-speed test oval in Germany. Removing the 7,500 rpm rev-limiter to 8,300 rpm, the car clocked a two-way average of 240.1 mph (386.4 km/h).',
           'Today, modern hypercars exceed 300 mph, but they require four turbochargers, hybrid battery packs, all-wheel drive, and weigh over 4,400 lbs. The McLaren F1 did it with a manual gear lever, three pedals, atmospheric combustion, and light-footed agility that will likely never be replicated.'
@@ -86,9 +94,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'September 2026',
     readTimeMinutes: 6,
     heroImage: mazda787bImg,
+    imageAlt: '1991 Mazda 787B race car chassis 002 in orange and green Renown livery with quad-rotor Wankel engine at Le Mans',
     imageCaption: 'Mazda 787B Chassis #002 in iconic Renown diamond-pattern livery, captured resting in the Circuit de la Sarthe paddock.',
     photographerCredit: 'Rev Talks Le Mans Archive',
     historicalEra: '1991',
+    seo: {
+      canonicalPath: '/article/mazda-787b-quad-rotor-le-mans-conquest',
+      mainKeyword: 'Mazda 787B Le Mans analysis',
+      relatedKeywords: ['R26B quad rotor engine', 'Wankel rotary race car'],
+      pageTitle: 'Mazda 787B Le Mans Analysis: Quad-Rotor Triumph | Rev Talks',
+      metaDescription: 'Discover the engineering behind the Mazda 787B and its 700-hp R26B quad-rotor Wankel engine. Explore Japan’s historic 1991 Le Mans 24 Hours victory on Rev Talks.',
+    },
     tags: ['Wankel Rotary', 'Le Mans 24 Hours', 'R26B Quad-Rotor', 'Group C', 'Mazdaspeed'],
     keySpecs: [
       { label: 'Engine Code', value: 'Mazda R26B 4-Rotor Wankel' },
@@ -100,18 +116,18 @@ export const ARTICLES: Article[] = [
     excerpt: 'On June 23, 1991, against towering factory entries from Jaguar, Mercedes-Benz, and Porsche, Mazda’s naturally aspirated 4-rotor Wankel 787B became the first Japanese manufacturer to claim overall victory at the 24 Hours of Le Mans.',
     sections: [
       {
-        heading: 'Defying the Piston Engine Monoculture',
+        heading: 'What Made the Mazda 787B’s R26B Quad-Rotor Engine Unstoppable at Le Mans?',
         content: [
+          'The Mazda 787B conquered Le Mans due to its naturally aspirated 2.6-liter R26B four-rotor Wankel engine, which eliminated reciprocating valves and camshafts in favor of smooth rotational motion. By utilizing silicon nitride ceramic apex seals and electronically managed variable telescopic intake trumpets, the engine produced 700 horsepower at 9,000 rpm with unyielding thermal reliability across 362 laps.',
           'For nearly four decades, Felix Wankel’s rotary design had been derided by conservative European and American manufacturers. Critics cited rotor tip apex seal wear, thermal inefficiency, and emissions hurdles. Yet Mazda’s engineers in Hiroshima refused to surrender.',
           'Entering the 1991 24 Hours of Le Mans, the FIA had announced that Group C regulations would outlaw rotary engines beginning in 1992, mandating 3.5-liter Formula 1-style naturally aspirated piston engines. It was Mazda’s final chance.'
         ],
         quote: 'We knew 1991 was our last year of eligibility. We did not build a car to survive 24 hours; we built a car to sprint for 24 continuous hours.'
       },
       {
-        heading: 'Anatomy of the R26B Quad-Rotor',
+        heading: 'How Did Variable Telescopic Intakes Optimize the R26B Powertrain?',
         content: [
-          'At the heart of car #55 sat the R26B: four triangular rotors mounted on an eccentric shaft, displacing 654 cc per chamber for an equivalent calculated displacement of 2.6 liters.',
-          'To overcome apex seal degradation under prolonged heat, Mazda partnered with ceramic specialists to develop silicon nitride ceramic seals. Furthermore, the engine featured continuously variable intake runners (telescopic trumpets) managed by an electronic ECU, dynamically adjusting runner length across the rev range to guarantee linear torque.',
+          'The R26B engine featured continuously variable intake runners managed dynamically by the onboard ECU. At lower engine speeds, the intake trumpets extended to maximize acoustic ram-air wave pressure; as revs climbed toward the 9,000 rpm redline, the runners shortened continuously to minimize intake restriction.',
           'With three spark plugs per rotor (12 plugs in total) and peripheral intake ports, the R26B screamed to 9,000 rpm with a spine-tingling auditory crescendo audible from two miles away across the French countryside.'
         ],
         callout: {
@@ -120,7 +136,7 @@ export const ARTICLES: Article[] = [
         }
       },
       {
-        heading: 'The Victory of Car #55',
+        heading: 'Why Did Car #55 Outlast Turbocharged Rivals in the Group C Era?',
         content: [
           'Driven by Johnny Herbert, Volker Weidler, and Bertrand Gachot, the fluorescent orange and green #55 chased down the heavy Mercedes-Benz C11s. While the rival turbocharged V8s succumbed to gearbox failures and cooling issues under relentless pressure, Herbert crossed the line after 362 gruelling laps.',
           'Exhausted and dehydrated, Herbert collapsed on the podium, but Mazda’s victory was etched forever into motorsport folklore: the only rotary-powered car in history to conquer Le Mans.'
@@ -143,9 +159,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'August 2026',
     readTimeMinutes: 5,
     heroImage: ducati916Img,
+    imageAlt: '1994 Ducati 916 Strada sportbike in Rosso red showcasing the single-sided swingarm and dual under-tail exhaust silencers',
     imageCaption: '1994 Ducati 916 Strada, featuring the single-sided swingarm and signature twin under-tail silencers designed by Massimo Tamburini.',
     photographerCredit: 'Rev Talks Italian Archive',
     historicalEra: '1994–1998',
+    seo: {
+      canonicalPath: '/article/ducati-916-massimo-tamburini-desmodromic-sculpture',
+      mainKeyword: 'Ducati 916 design history',
+      relatedKeywords: ['Desmodromic valvetrain engineering', 'Massimo Tamburini superbike'],
+      pageTitle: 'Ducati 916 Design History & Desmodromic Engineering | Rev Talks',
+      metaDescription: 'Explore Massimo Tamburini’s iconic Ducati 916 superbike. Learn how Desmodromic valvetrain control, single-sided swingarms, and World Superbike wins made history.',
+    },
     tags: ['Ducati', 'Desmodromic', 'Massimo Tamburini', 'World Superbike', 'Carl Fogarty'],
     keySpecs: [
       { label: 'Engine Type', value: '916cc 90° L-Twin Desmoquattro' },
@@ -157,18 +181,19 @@ export const ARTICLES: Article[] = [
     excerpt: 'When the Ducati 916 broke cover at the 1993 Milan EICMA Show, it rendered every existing motorcycle visually and technically archaic overnight. Its combination of desmodromic valve control and structural compactness became an icon of industrial art.',
     sections: [
       {
-        heading: 'Tamburini’s Six-Year Obsession',
+        heading: 'Why Did the Ducati 916 Reshape Modern Superbike Chassis Geometry?',
         content: [
-          'Massimo Tamburini spent over six years developing the 916 at the Cagiva Research Centre in San Marino. He tested prototype mules endlessly around the hills of Rimini, refusing to release the bike until its mass centralization was flawless.',
+          'The Ducati 916 revolutionized motorcycle chassis dynamics by packing an ultra-rigid steel trellis frame around a 90-degree L-twin engine, routing exhaust pipes beneath the seat cowl to dramatically narrow frontal aerodynamic profile and tuck rider ergonomics. Massimo Tamburini concentrated all critical mass around the roll axis, delivering laser-accurate turn-in geometry and mid-corner stability unmatched by Japanese four-cylinders of the era.',
+          'Tamburini spent over six years developing the 916 at the Cagiva Research Centre in San Marino. He tested prototype mules endlessly around the hills of Rimini, refusing to release the bike until its mass centralization was flawless.',
           'Every contour on the 916 served an aerodynamic or functional mandate. The twin headlights were narrow polyellipsoidal units that allowed the front fairing cross-section to shrink significantly, cutting wind resistance.'
         ],
         quote: 'A motorcycle must be beautiful, but every millimeter of its bodywork must respond to air, heat, and gravity.'
       },
       {
-        heading: 'The Genius of Desmodromic Valves',
+        heading: 'How Does Ducati’s Desmodromic Valve Actuation Prevent Valve Float?',
         content: [
-          'Conventional motorcycle engines use metal coil springs to close their valves after a camshaft lobe opens them. At high rpm, valve springs cannot keep up, resulting in "valve float"—where valves collide fatally with pistons.',
-          'Ducati solved this through Fabio Taglioni’s Desmodromic system: an ingenious mechanical rocker assembly where one cam lobe opens the valve and a secondary closing rocker mechanically pulls the valve shut. This completely eliminated valve float, allowing aggressive cam profiles and instantaneous throttle response.'
+          'Conventional motorcycle engines use metal coil springs to close valves after camshaft lobes open them. At high rpm, valve springs cannot keep up, causing valve float and engine damage. Ducati’s Desmodromic system eliminates springs entirely, using paired opening and closing rocker arms mechanically driven by the camshaft to positively pull valves closed.',
+          'This mechanical closure guarantees absolute precision at maximum engine speeds, permitting aggressive cam profiles and instantaneous throttle response.'
         ],
         callout: {
           title: 'The Single-Sided Swingarm Utility',
@@ -176,7 +201,7 @@ export const ARTICLES: Article[] = [
         }
       },
       {
-        heading: 'World Superbike Domination',
+        heading: 'Why Did the 916 Dominate the World Superbike Championship?',
         content: [
           'Ridden by Carl Fogarty, Troy Corser, and Neil Hodgson, the Ducati 916 and its immediate evolutions (996 and 998) claimed four World Superbike Riders’ Championships and six Manufacturers’ Championships between 1994 and 1999.',
           'The motorcycle was recognized by the Solomon R. Guggenheim Museum in New York for its "Art of the Motorcycle" exhibition, canonizing it as one of the 20th century’s crowning industrial design achievements.'
@@ -199,9 +224,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'July 2026',
     readTimeMinutes: 6,
     heroImage: porsche993Img,
+    imageAlt: '1996 Porsche 911 993 Turbo sports car in Midnight Blue Metallic parked along the mountain pass in the Swiss Alps',
     imageCaption: '1996 Porsche 911 993 Turbo in Midnight Blue Metallic, resting atop the Susten Pass in the Swiss Alps.',
     photographerCredit: 'Rev Talks Alpine Expedition',
     historicalEra: '1994–1998',
+    seo: {
+      canonicalPath: '/article/porsche-993-air-cooled-flat-six-twilight',
+      mainKeyword: 'Porsche 993 air cooled guide',
+      relatedKeywords: ['Hans Mezger flat six engine', 'Weissach multi link suspension'],
+      pageTitle: 'Porsche 993 Technical Guide: Air-Cooled Flat-Six Zenith | Rev Talks',
+      metaDescription: 'Explore the mechanical brilliance of the Type 993 Porsche 911. Discover why its air-cooled Mezger flat-six and LSA Weissach multi-link axle remain iconic today.',
+    },
     tags: ['Porsche 911', 'Type 993', 'Hans Mezger', 'Air-Cooled', 'Weissach Axle'],
     keySpecs: [
       { label: 'Engine Code', value: 'M64/60 3.6L Twin-Turbo Flat-6' },
@@ -213,22 +246,23 @@ export const ARTICLES: Article[] = [
     excerpt: 'Produced between 1994 and 1998, the Type 993 represents the absolute pinnacle of Porsche’s 34-year devotion to air-cooled engineering. We explore why collectors and engineers revere this hand-built generation above all others.',
     sections: [
       {
-        heading: 'The End of a 34-Year Lineage',
+        heading: 'What Makes the Air-Cooled Type 993 the Definitive Porsche 911?',
         content: [
+          'The Type 993 represents the culmination of Porsche’s 34-year air-cooled evolution, combining the dry-sump, race-proven Mezger flat-six architecture with an aluminum LSA multi-link rear suspension that eliminated historical trailing-throttle snap oversteer. As the final hand-assembled 911 built at Zuffenhausen before robotic modular water-cooled production, it offers an analog tactility and mechanical density that modern sports cars cannot match.',
           'Since Ferdinand "Butzi" Porsche and Hans Mezger formulated the original 901 in 1963, the rear-mounted air-cooled flat-six had been the spine of Porsche’s identity. Air cooling eliminated heavy water radiators, hoses, thermostats, and water pumps, preserving an unrivaled purity of feedback.',
           'By the early 1990s, however, tightening noise regulations (water jackets act as acoustic insulation) and multi-valve cylinder head thermal limits meant the days of air-cooling were numbered. Porsche’s engineers determined to make the 993 their definitive statement.'
         ]
       },
       {
-        heading: 'The LSA Rear Suspension Revolution',
+        heading: 'How Did the LSA Multi-Link Rear Suspension Cure 911 Snap Oversteer?',
         content: [
-          'Previous 911s had earned a notorious reputation for snap oversteer when trailing off the throttle mid-corner, caused by semi-trailing arm rear geometry under load.',
-          'With the 993, chief engineer Horst Marchart introduced the all-aluminum LSA (Lightweight, Stable, Agile) multi-link rear suspension. Operating with passive rear-wheel toe correction under lateral forces (the Weissach axle effect), it effectively cured the 911’s historical snap oversteer while retaining rear-engine traction.'
+          'Previous 911 generations utilized semi-trailing arms that altered camber and toe under cornering forces, generating snap oversteer if the driver lifted off the throttle. Chief engineer Horst Marchart introduced the all-aluminum LSA (Lightweight, Stable, Agile) multi-link suspension with built-in toe-in compliance geometry under lateral load, effectively stabilizing the rear pendulum while preserving lightning-quick directional response.',
+          'Operating with passive rear-wheel toe correction under lateral forces (the Weissach axle effect), it transformed high-speed confidence.'
         ],
         quote: 'The 993 was the first 911 where you could stand on the brakes deep into a downhill mountain hairpin without feeling the rear pendulum threaten your life.'
       },
       {
-        heading: 'The Twin-Turbo M64/60 and Handbuilt Integrity',
+        heading: 'What Made the Hand-Built Zuffenhausen Build Quality So Legendary?',
         content: [
           'In the 993 Turbo, Porsche introduced twin KKK turbochargers with an all-wheel-drive viscous coupling system adapted from the legendary 959 supercar. Delivering 408 horsepower with practically zero turbo lag, it could launch from 0 to 60 mph in 3.7 seconds in 1995.',
           'Moreover, the 993 was the final 911 assembled largely by hand at the historic Zuffenhausen factory before robotic modular lines were implemented for the 996. The distinctive hollow ‘thunk’ of the doors shutting and the heavy forged pedals hinged from the floor remain unmatched tactile pleasures.'
@@ -251,9 +285,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'June 2026',
     readTimeMinutes: 5,
     heroImage: yamahaRd350Img,
+    imageAlt: '1973 Yamaha RD350 two-stroke motorcycle in white and red speedblock livery with expansion chamber exhaust pipes',
     imageCaption: '1973 Yamaha RD350 in classic white and red speedblock livery, showing its upswept dual expansion chambers.',
     photographerCredit: 'Rev Talks Vintage Vault',
     historicalEra: '1973–1979',
+    seo: {
+      canonicalPath: '/article/yamaha-rd350-the-giant-killing-two-stroke-cult',
+      mainKeyword: 'Yamaha RD350 technical review',
+      relatedKeywords: ['two stroke expansion chambers', 'torque induction reed valves'],
+      pageTitle: 'Yamaha RD350 Technical Review: Two-Stroke Giant Killer | Rev Talks',
+      metaDescription: 'Discover how the 1973 Yamaha RD350 two-stroke twin outran 750cc superbikes. Explore reed-valve Torque Induction and expansion chamber physics at Rev Talks.',
+    },
     tags: ['Two-Stroke', 'Yamaha RD350', 'Torque Induction', 'Cafe Racer', 'Expansion Chambers'],
     keySpecs: [
       { label: 'Engine Type', value: '347cc Parallel-Twin 2-Stroke' },
@@ -306,9 +348,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'May 2026',
     readTimeMinutes: 7,
     heroImage: koenigseggJeskoImg,
+    imageAlt: 'Koenigsegg Jesko Attack hypercar with Light Speed Transmission and aggressive carbon active aerodynamics on airport runway',
     imageCaption: 'The Koenigsegg Jesko Attack on the runway tarmac at Ängelholm, Sweden, testing active aero flap transitions.',
     photographerCredit: 'Koenigsegg Automotive AB Engineering Archive',
     historicalEra: '2020–Present',
+    seo: {
+      canonicalPath: '/article/koenigsegg-jesko-light-speed-transmission-physics',
+      mainKeyword: 'Koenigsegg Jesko LST transmission',
+      relatedKeywords: ['9 speed multi clutch gearbox', 'hypercar shift latency engineering'],
+      pageTitle: 'Koenigsegg Jesko LST Transmission & Powertrain Physics | Rev Talks',
+      metaDescription: 'Explore the engineering of Koenigsegg’s 9-speed, 7-clutch Light Speed Transmission (LST). Discover how 2-millisecond non-sequential shifts redefine hypercars at Rev Talks.',
+    },
     tags: ['Koenigsegg', 'Jesko', 'LST Gearbox', 'Flat-Plane V8', 'Aerodynamics'],
     keySpecs: [
       { label: 'Transmission', value: '9-Speed Light Speed Transmission (LST)' },
@@ -358,9 +408,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'April 2026',
     readTimeMinutes: 6,
     heroImage: hondaCb750Img,
+    imageAlt: '1969 Honda CB750 Four classic superbike in Candy Blue with chrome four-into-four exhaust and front disc brake',
     imageCaption: '1969 Honda CB750 Four "Sandcast" in Candy Blue/Gold with four-into-four exhaust configuration.',
     photographerCredit: 'Rev Talks Motoring Heritage',
     historicalEra: '1969–1978',
+    seo: {
+      canonicalPath: '/article/honda-cb750-1969-birth-of-the-modern-superbike',
+      mainKeyword: 'Honda CB750 Four history',
+      relatedKeywords: ['first modern superbike', 'transverse inline four motorcycle'],
+      pageTitle: '1969 Honda CB750 Four History: Superbike Dawn | Rev Talks',
+      metaDescription: 'Discover how Soichiro Honda’s 1969 CB750 Four established the modern superbike with an inline-four engine, electric start, and hydraulic front disc brakes at Rev Talks.',
+    },
     tags: ['Honda CB750', 'Soichiro Honda', 'Inline-Four', 'Front Disc Brake', 'Electric Starter'],
     keySpecs: [
       { label: 'Engine Type', value: '736cc Transverse SOHC Inline-4' },
@@ -413,9 +471,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'March 2026',
     readTimeMinutes: 6,
     heroImage: evPowertrainImg,
+    imageAlt: 'High-speed electric vehicle powertrain rotor wrapped in carbon fiber sleeve inside engineering dyno laboratory',
     imageCaption: 'A high-speed carbon-overwrapped rotor assembly inside an experimental electric test dyno cell.',
     photographerCredit: 'Rev Talks Advanced Powertrain Lab',
     historicalEra: '2021–Present',
+    seo: {
+      canonicalPath: '/article/carbon-sleeved-rotors-20000-rpm-ev-powertrains',
+      mainKeyword: 'carbon sleeved EV rotor physics',
+      relatedKeywords: ['20000 rpm electric motor', 'permanent magnet centrifugal restraint'],
+      pageTitle: 'Carbon-Sleeved EV Rotors: 20,000 RPM Physics | Rev Talks',
+      metaDescription: 'Explore the mechanical physics of carbon-overwrapped rotors in 20,000 RPM electric vehicle powertrains. Analyze magnet retention and eddy currents at Rev Talks.',
+    },
     tags: ['Electric Motors', 'Carbon Overwrap', 'Permanent Magnet', 'Thermal Management', 'EV Physics'],
     keySpecs: [
       { label: 'Rotor Angular Velocity', value: '20,000+ RPM' },
@@ -465,9 +531,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'February 2026',
     readTimeMinutes: 6,
     heroImage: bmwE30M3Img,
+    imageAlt: '1988 BMW E30 M3 Group A homologation sports car in Alpine White with boxed blister fenders and steep rear wing',
     imageCaption: '1988 BMW E30 M3 in Alpine White, displaying the widened boxed fenders and altered C-pillar rake.',
     photographerCredit: 'Rev Talks Historic Motorsport Division',
     historicalEra: '1986–1991',
+    seo: {
+      canonicalPath: '/article/bmw-e30-m3-group-a-dtm-homologation-legend',
+      mainKeyword: 'BMW E30 M3 homologation history',
+      relatedKeywords: ['Paul Rosche S14 engine', 'Group A touring car regulations'],
+      pageTitle: 'BMW E30 M3 Homologation History & S14 Engine | Rev Talks',
+      metaDescription: 'Explore the racing origin of the 1986 BMW E30 M3 Group A homologation special. Discover Paul Rosche’s high-revving S14 four-cylinder and DTM victories on Rev Talks.',
+    },
     tags: ['BMW M3', 'Group A', 'DTM', 'S14 Engine', 'Homologation Special'],
     keySpecs: [
       { label: 'Engine Code', value: 'BMW S14 2.3L DOHC 16V 4-Cyl' },
@@ -479,13 +553,14 @@ export const ARTICLES: Article[] = [
     excerpt: 'The original 1986 BMW M3 was not a luxury sports coupe; it was an uncompromising racing homologation special engineered solely to defeat Mercedes-Benz in the German Touring Car Championship (DTM).',
     sections: [
       {
-        heading: 'The 5,000-Unit Group A Requirement',
+        heading: 'Why Was the BMW M3 E30 Engineered as a Group A Homologation Special?',
         content: [
-          'In the mid-1980s, FISA Group A touring car rules required manufacturers to produce at least 5,000 road-going versions of a racecar within 12 consecutive months. BMW Motorsport GmbH, led by Eberhard von Kuenheim, decided to create a bespoke weapon based on the compact E30 chassis.'
+          'Under FISA Group A touring car regulations in the mid-1980s, carmakers were required to build and sell a minimum of 5,000 street-legal production cars within 12 months to homologate a chassis for international racing. BMW Motorsport engineered the E30 M3 specifically to meet this rule, transforming the humble 3-Series into a wide-tracked racecar with boxed fender blisters, raised trunk aerodynamics, and a high-revving four-cylinder engine engineered specifically for DTM warfare.',
+          'BMW Motorsport GmbH, led by Eberhard von Kuenheim, decided to create a bespoke weapon based on the compact E30 chassis rather than larger luxury platforms.'
         ]
       },
       {
-        heading: 'The S14 Engine: Cutting Two Cylinders from an M1',
+        heading: 'How Did Paul Rosche Engineer the High-Revving S14 Engine?',
         content: [
           'Engine guru Paul Rosche needed an engine that could rev past 9,000 rpm in race trim. The standard 6-cylinder BMW engines of the era had long crankshafts prone to torsional vibration at high revs.',
           'Rosche’s solution was brilliant: he took the cylinder head casting from the legendary mid-engine BMW M1 supercar (the M88 3.5L straight-six), lopped off two cylinders, and mated the 4-valve head onto the ultra-durable cast-iron M10 engine block. In less than two weeks, the 2.3-liter S14 was running on the dyno.'
@@ -496,7 +571,7 @@ export const ARTICLES: Article[] = [
         }
       },
       {
-        heading: 'The Most Successful Touring Car in History',
+        heading: 'Why Is the E30 M3 Celebrated as Touring Car Royalty?',
         content: [
           'Driven by champions like Roberto Ravaglia, Johnny Cecotto, and Eric van de Poele, the E30 M3 conquered the World Touring Car Championship, European Touring Car Championship, DTM, and claimed four outright victories at the 24 Hours of Nürburgring.',
           'With its precise dogleg 5-speed manual gearbox, communicative hydraulic steering, and razor-sharp balance, it set the benchmark by which every subsequent sports sedan is still judged.'
@@ -519,9 +594,17 @@ export const ARTICLES: Article[] = [
     publishedDate: 'January 2026',
     readTimeMinutes: 6,
     heroImage: kawasakiH2Img,
+    imageAlt: 'Kawasaki Ninja H2 hypersport motorcycle with carbon fiber fairings and aerospace centrifugal supercharger intake',
     imageCaption: 'Kawasaki Ninja H2 Carbon Edition displaying the mirror-finish silver flakes and carbon fiber aerodynamic winglets.',
     photographerCredit: 'Rev Talks Technical Photography',
     historicalEra: '2015–Present',
+    seo: {
+      canonicalPath: '/article/kawasaki-ninja-h2-aerospace-centrifugal-supercharger',
+      mainKeyword: 'Kawasaki Ninja H2 supercharger specs',
+      relatedKeywords: ['130000 rpm billet impeller', 'centrifugal supercharged motorcycle'],
+      pageTitle: 'Kawasaki Ninja H2 Supercharger Specs & Aerodynamics | Rev Talks',
+      metaDescription: 'Discover the aerospace engineering behind the Kawasaki Ninja H2. Analyze the 130,000 RPM planetary impeller, 300+ horsepower output, and carbon downforce winglets.',
+    },
     tags: ['Supercharger', 'Kawasaki H2', 'Centrifugal Impeller', 'Aerodynamics', '310 HP'],
     keySpecs: [
       { label: 'Engine Type', value: '998cc Liquid-Cooled DOHC 16V Inline-4' },
@@ -533,22 +616,22 @@ export const ARTICLES: Article[] = [
     excerpt: 'When Kawasaki set out to build the Ninja H2 in 2015, they rejected off-the-shelf automotive superchargers. Instead, their Gas Turbine & Machinery division milled a 5-axis aerospace impeller capable of pushing 200 liters of atmospheric air per second.',
     sections: [
       {
-        heading: 'A Cross-Divisional Aerospace Marvel',
+        heading: 'How Does the Kawasaki Ninja H2 Centrifugal Supercharger Function?',
         content: [
-          'Motorcycles are severely constrained by physical space and cooling limitations. Fitting an automotive Roots-type blower or turbocharger adds unwieldy bulk and massive heat soak, requiring large intercoolers that cannot fit inside a motorcycle chassis.',
-          'Kawasaki’s Motorcycle Company called upon Kawasaki Heavy Industries’ Aerospace Company and Gas Turbine & Machinery Company. Working together, they created a bespoke centrifugal supercharger driven by planetary step-up gears directly off the crankshaft.'
+          'The Kawasaki Ninja H2 employs a custom centrifugal supercharger driven directly from the engine crankshaft via planetary step-up gears with a 9.2:1 multiplier ratio. When the 998cc inline-four hits its 14,000 rpm redline, the CNC-machined aluminum impeller spins at 130,000 rpm, compressing and feeding over 200 liters of atmospheric air per second into the cast aluminum plenum at 2.4 bar absolute pressure without the bulk or heat soak of automotive Roots blowers.',
+          'Kawasaki’s Motorcycle Company called upon Kawasaki Heavy Industries’ Aerospace Company and Gas Turbine & Machinery Company to manufacture the 5-axis milled component.'
         ]
       },
       {
-        heading: 'The 130,000 RPM Billet Impeller',
+        heading: 'Why Does the 130,000 RPM Billet Impeller Eliminate Intercooler Bulk?',
         content: [
           'The impeller measures just 69 mm in diameter and is CNC-machined from a solid billet of forged aeronautical aluminum with six primary blades and six intermediate splitter blades.',
-          'Driven through a planetary gear train with a 9.2:1 multiplier, when the 998cc inline-four reaches its 14,000 rpm redline, the impeller tips spin at an astronomical 130,000 rpm—approaching supersonic blade speeds (Mach 1.4 at the outer perimeter). It forces over 200 liters of air per second into the cast aluminum airbox at 2.4 bar of absolute pressure.'
+          'Because the planetary gear drive is so mechanically compact, the supercharger sits immediately behind the cylinder bank. Its high aerodynamic pumping efficiency limits thermal elevation of the intake charge, allowing Kawasaki engineers to dispense with heavy, drag-inducing intercoolers that could not fit within the sportbike frame.'
         ],
         quote: 'The chirping acoustic noise heard when rolling off the H2’s throttle is not a blow-off valve; it is supersonic air pressure bouncing off the closed throttle butterflies.'
       },
       {
-        heading: 'Carbon Winglets and 400 km/h Reality',
+        heading: 'How Do Aerospace Carbon Downforce Winglets Prevent High-Speed Lift?',
         content: [
           'In closed-course H2R trim producing 326 horsepower, the motorcycle accelerated to 400 km/h (248.5 mph) in under 26 seconds on Turkey’s Osman Gazi Bridge with Kenan Sofuoğlu aboard.',
           'To keep the front wheel planted on tarmac at speeds where motorcycles naturally develop aerodynamic lift, Kawasaki’s aerospace engineers designed carbon-fiber downforce aerofoils, inaugurating the aero winglet era that now dominates MotoGP.'
