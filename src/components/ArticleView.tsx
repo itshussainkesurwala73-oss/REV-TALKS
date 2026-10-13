@@ -11,6 +11,7 @@ import {
   User,
   Gauge,
   Zap,
+  ArrowRight,
 } from 'lucide-react';
 import { Article } from '../types/article';
 
