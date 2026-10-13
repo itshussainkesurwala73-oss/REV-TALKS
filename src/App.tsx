@@ -9,17 +9,11 @@ import { SearchModal } from './components/SearchModal';
 import { BookmarksModal } from './components/BookmarksModal';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
-import { CarLoader } from './components/CarLoader';
 import { STATIC_PAGE_SEO, getArticleSEO, updatePageMetadata } from './utils/seo';
 import { SlidersHorizontal, Flame, ArrowRight, Activity, Disc } from 'lucide-react';
 import cinematicBg from './assets/images/revtalks_cinematic_bg_1791385997218.jpg';
 
 export default function App() {
-  // Global loading animation state (initial load & article transitions)
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [loadingMessage, setLoadingMessage] = useState<string>('FERRARI LAFERRARI');
-  const [loadingSubmessage, setLoadingSubmessage] = useState<string>('HY-KERS Active · Priming 6.3L V12 powertrain...');
-
   // Dark mode state: initialized from localStorage or DOM class
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     try {
@@ -125,8 +119,6 @@ export default function App() {
         if (found) {
           setSelectedArticle(found);
           setCurrentView('article');
-          setLoadingMessage(found.title.length > 32 ? found.title.slice(0, 32) + '...' : found.title);
-          setLoadingSubmessage(`Reading dispatch · ${found.category}`);
           updatePageMetadata(getArticleSEO(found), found);
           return;
         }
@@ -202,14 +194,6 @@ export default function App() {
     };
   }, []);
 
-  // Initial site launch animation
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 700);
-    return () => clearTimeout(timer);
-  }, []);
-
   // Keyboard shortcut: Cmd+K / Ctrl+K for search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -234,18 +218,12 @@ export default function App() {
   };
 
   const handleSelectArticle = (article: Article) => {
-    setLoadingMessage(article.title.length > 32 ? article.title.slice(0, 32) + '...' : article.title);
-    setLoadingSubmessage(`Switching gear · Loading ${article.category} dispatch...`);
-    setIsLoading(true);
     setSelectedArticle(article);
     setCurrentView('article');
     const articleSeo = getArticleSEO(article);
     pushUrl(articleSeo.canonicalPath, articleSeo.pageTitle);
     updatePageMetadata(articleSeo, article);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 550);
   };
 
   const handleNavigateHome = () => {
@@ -604,12 +582,6 @@ export default function App() {
         onToggleDarkMode={toggleDarkMode}
       />
 
-      {/* Drifting Sports Car Loading Animation with Blurred Backdrop */}
-      <CarLoader
-        isLoading={isLoading}
-        message={loadingMessage}
-        submessage={loadingSubmessage}
-      />
     </div>
   );
 }
