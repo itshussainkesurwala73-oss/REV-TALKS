@@ -13,9 +13,9 @@ export const STATIC_PAGE_SEO: Record<string, PageSEO> = {
   home: {
     canonicalPath: '/',
     mainKeyword: 'automotive engineering journal',
-    relatedKeywords: ['analog hypercars', 'classic supercar history'],
-    pageTitle: 'Rev Talks | Automotive Engineering & Supercar Journal',
-    metaDescription: 'Explore in-depth technical analyses of analog supercars, motorsport homologations, and historic superbikes. Read high-octane engineering at Rev Talks.',
+    relatedKeywords: ['automotive engineering articles', 'supercar and superbike history'],
+    pageTitle: 'Rev Talks | Automotive Engineering Journal',
+    metaDescription: 'Explore automotive engineering articles, supercar and superbike history, and in-depth stories on performance, technology, and automotive heritage.',
   },
 
   // Category Pages
@@ -137,7 +137,10 @@ export function updatePageMetadata(seo: PageSEO, article?: Article) {
 
   // 3. OpenGraph Tags
   const cleanCanonicalPath = seo.canonicalPath.replace(/-7ov5/gi, '');
-  const fullUrl = `${window.location.origin.replace(/-7ov5/gi, '')}${cleanCanonicalPath}`;
+  const baseDomain = (typeof window !== 'undefined' && (window.location.origin.includes('rev-talks.vercel.app') || window.location.origin.includes('localhost') || window.location.origin.includes('run.app')))
+    ? 'https://rev-talks.vercel.app'
+    : window.location.origin.replace(/-7ov5/gi, '');
+  const fullUrl = cleanCanonicalPath === '/' ? `${baseDomain}/` : `${baseDomain}${cleanCanonicalPath}`;
   setMeta('property', 'og:title', seo.pageTitle);
   setMeta('property', 'og:description', seo.metaDescription);
   setMeta('property', 'og:url', fullUrl);

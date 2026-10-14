@@ -35,9 +35,9 @@ export const ARTICLES: Article[] = [
     seo: {
       canonicalPath: '/article/mclaren-f1-gordon-murray-atmospheric-purity',
       mainKeyword: 'McLaren F1 engineering review',
-      relatedKeywords: ['BMW S70/2 V12 engine', 'carbon monocoque analog supercar'],
-      pageTitle: 'McLaren F1 Technical Review: Gordon Murray’s Zenith | Rev Talks',
-      metaDescription: 'Read the comprehensive technical review of the McLaren F1. Explore Gordon Murray’s central seating, BMW S70/2 V12 powertrain, and 240.1 mph record at Rev Talks.',
+      relatedKeywords: ['BMW S70/2 V12 engine', 'McLaren F1 carbon-fibre monocoque chassis'],
+      pageTitle: 'McLaren F1 Engineering Review | Rev Talks',
+      metaDescription: 'Read our McLaren F1 engineering review, exploring the BMW S70/2 V12 engine and McLaren F1 carbon-fibre monocoque chassis built for pure driver engagement.',
     },
     tags: ['Gordon Murray', 'BMW S70/2', 'Carbon Monocoque', 'Naturally Aspirated', 'Analog Driving'],
     keySpecs: [
@@ -101,9 +101,9 @@ export const ARTICLES: Article[] = [
     seo: {
       canonicalPath: '/article/mazda-787b-quad-rotor-le-mans-conquest',
       mainKeyword: 'Mazda 787B Le Mans analysis',
-      relatedKeywords: ['R26B quad rotor engine', 'Wankel rotary race car'],
-      pageTitle: 'Mazda 787B Le Mans Analysis: Quad-Rotor Triumph | Rev Talks',
-      metaDescription: 'Discover the engineering behind the Mazda 787B and its 700-hp R26B quad-rotor Wankel engine. Explore Japan’s historic 1991 Le Mans 24 Hours victory on Rev Talks.',
+      relatedKeywords: ['Mazda R26B quad-rotor rotary engine', 'Mazda 787B 1991 Le Mans victory'],
+      pageTitle: 'Mazda 787B Le Mans Analysis | Rev Talks',
+      metaDescription: 'Explore our Mazda 787B Le Mans analysis, covering the Mazda R26B quad-rotor rotary engine and the Mazda 787B 1991 Le Mans victory at Circuit de la Sarthe.',
     },
     tags: ['Wankel Rotary', 'Le Mans 24 Hours', 'R26B Quad-Rotor', 'Group C', 'Mazdaspeed'],
     keySpecs: [
@@ -166,9 +166,9 @@ export const ARTICLES: Article[] = [
     seo: {
       canonicalPath: '/article/ducati-916-massimo-tamburini-desmodromic-sculpture',
       mainKeyword: 'Ducati 916 design history',
-      relatedKeywords: ['Desmodromic valvetrain engineering', 'Massimo Tamburini superbike'],
-      pageTitle: 'Ducati 916 Design History & Desmodromic Engineering | Rev Talks',
-      metaDescription: 'Explore Massimo Tamburini’s iconic Ducati 916 superbike. Learn how Desmodromic valvetrain control, single-sided swingarms, and World Superbike wins made history.',
+      relatedKeywords: ['Ducati 916 design history', 'Ducati 916 desmodromic V-twin engine'],
+      pageTitle: 'Ducati 916 Design History | Rev Talks',
+      metaDescription: 'Discover Ducati 916 design history and explore how the Ducati 916 desmodromic V-twin engine helped define this iconic superbike across World Superbike racing.',
     },
     tags: ['Ducati', 'Desmodromic', 'Massimo Tamburini', 'World Superbike', 'Carl Fogarty'],
     keySpecs: [
