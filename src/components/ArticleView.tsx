@@ -336,6 +336,23 @@ export const ArticleView: React.FC<ArticleViewProps> = ({
           </figcaption>
         </figure>
 
+        {/* Editorial Abstract & Keywords Monograph */}
+        {article.seo && (
+          <div className="mb-8 p-5 sm:p-6 rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-xs">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5 pb-2 border-b border-zinc-100 dark:border-zinc-800/80">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-red-600 dark:text-red-400">
+                Editorial Abstract // {article.seo.mainKeyword}
+              </span>
+              <span className="text-[10px] font-mono uppercase text-zinc-400">
+                Key Topics: {article.seo.relatedKeywords[0]} · {article.seo.relatedKeywords[1]}
+              </span>
+            </div>
+            <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 font-sans leading-relaxed italic">
+              "{article.seo.metaDescription}"
+            </p>
+          </div>
+        )}
+
         {/* Telemetry Dashboard Specifications Box */}
         <div className="mb-14 p-6 sm:p-7 rounded-xl bg-zinc-100/90 dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800 relative overflow-hidden transition-colors">
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-red-500 via-rose-500 to-transparent" />

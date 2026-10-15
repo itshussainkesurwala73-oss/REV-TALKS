@@ -12,10 +12,10 @@ export const STATIC_PAGE_SEO: Record<string, PageSEO> = {
   // Home Page
   home: {
     canonicalPath: '/',
-    mainKeyword: 'automotive engineering journal',
-    relatedKeywords: ['automotive engineering articles', 'supercar and superbike history'],
+    mainKeyword: 'Automotive Engineering Journal',
+    relatedKeywords: ['Automotive engineering articles', 'Super car and super bike history'],
     pageTitle: 'Rev Talks | Automotive Engineering Journal',
-    metaDescription: 'Explore automotive engineering articles, supercar and superbike history, and in-depth stories on performance, technology, and automotive heritage.',
+    metaDescription: 'Explore automotive engineering articles, super car and super bike history, and in-depth stories on performance, technology, and automotive heritage.',
   },
 
   // Category Pages (Clean, short, simple URLs)

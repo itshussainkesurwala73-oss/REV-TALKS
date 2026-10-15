@@ -479,7 +479,7 @@ export default function App() {
                       className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-950 dark:text-white tracking-tight leading-tight drop-shadow-xs"
                       style={{ textWrap: 'balance' }}
                     >
-                      BRED ON ASPHALT. <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 dark:from-red-500 dark:via-rose-500 dark:to-amber-500">ENGINEERED FOR REDLINE.</span>
+                      Automotive <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 dark:from-red-500 dark:via-rose-500 dark:to-amber-500">Engineering Journal</span>
                     </h1>
                   </div>
                   
@@ -489,7 +489,7 @@ export default function App() {
                       <Disc className="w-3.5 h-3.5 animate-spin" />
                       <span>Pure Mechanical Mastery</span>
                     </div>
-                    Inside the combustion masterworks, carbon monocoques, and aero dynamics of the world’s most relentless machines.
+                    Explore automotive engineering articles, super car and super bike history, and in-depth stories on performance, technology, and automotive heritage.
                   </div>
                 </div>
 

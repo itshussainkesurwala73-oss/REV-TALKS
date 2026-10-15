@@ -17,8 +17,8 @@ export const ARTICLES: Article[] = [
     id: 'mclaren-f1-purity',
     slug: 'mclaren-f1',
     aliases: ['mclaren-f1-gordon-murray-atmospheric-purity', 'mclaren-f1-purity'],
-    title: 'The Unrepeatable Zenith: Gordon Murray’s McLaren F1',
-    subtitle: 'Why three decades later, no hypercar has ever equaled the analog clarity of chassis XP5 at 240.1 mph.',
+    title: 'Mclaren F1 Engineering Review: Gordon Murray’s Atmospheric Zenith',
+    subtitle: 'An in-depth review exploring the Mclaren F1 v12 engine and Mclaren F1 carbon fibre monocoque chassis built for pure driver engagement.',
     category: 'Supercars',
     vehicleType: 'Car',
     featured: true,
@@ -35,10 +35,10 @@ export const ARTICLES: Article[] = [
     historicalEra: '1992–1998',
     seo: {
       canonicalPath: '/article/mclaren-f1',
-      mainKeyword: 'McLaren F1 engineering review',
-      relatedKeywords: ['BMW S70/2 V12 engine', 'McLaren F1 carbon-fibre monocoque chassis'],
-      pageTitle: 'McLaren F1 Engineering Review | Rev Talks',
-      metaDescription: 'Read our McLaren F1 engineering review, exploring the BMW S70/2 V12 engine and McLaren F1 carbon-fibre monocoque chassis built for pure driver engagement.',
+      mainKeyword: 'Mclaren F1 engineering review',
+      relatedKeywords: ['Mclaren F1 v12 engine', 'Mclaren F1 carbon fibre monocoque chassis'],
+      pageTitle: 'Mclaren F1 Engineering Review | Rev Talks',
+      metaDescription: 'Read our Mclaren F1 engineering review, exploring the Mclaren F1 v12 engine and Mclaren F1 carbon fibre monocoque chassis built for pure driver engagement.',
     },
     tags: ['Gordon Murray', 'BMW S70/2', 'Carbon Monocoque', 'Naturally Aspirated', 'Analog Driving'],
     keySpecs: [
@@ -48,7 +48,7 @@ export const ARTICLES: Article[] = [
       { label: 'Top Speed Record', value: '240.1 mph (386.4 km/h)' },
       { label: 'Engine Bay Foil', value: '16g Pure Gold Heatshield' }
     ],
-    excerpt: 'Gordon Murray designed the McLaren F1 not to break records, but to deliver the ultimate visceral driver interface. Without power steering, ABS, or turbos, it ended up setting a production speed benchmark that stands unbroken for naturally aspirated cars.',
+    excerpt: 'Read our Mclaren F1 engineering review, exploring the Mclaren F1 v12 engine and Mclaren F1 carbon fibre monocoque chassis that defined analog hypercar purity without electronic assists.',
     sections: [
       {
         heading: 'Why Does the McLaren F1 Use a Central Driving Position?',
@@ -110,8 +110,8 @@ export const ARTICLES: Article[] = [
     id: 'mazda-787b-rotary-triumph',
     slug: 'mazda-787b',
     aliases: ['mazda-787b-quad-rotor-le-mans-conquest', 'mazda-787b-rotary-triumph'],
-    title: 'The Screaming Rotor: How Mazda’s 787B Silenced Le Mans',
-    subtitle: 'The engineering audacity of the 700-hp R26B engine and Japan’s first overall victory at Circuit de la Sarthe in 1991.',
+    title: 'Mazda 787B Lay Mans Analysis: The Screaming Quad-Rotor Triumph',
+    subtitle: 'The engineering audacity of the Mazda R26B called rotar rotary engine and the historic Mazda 787B 1991 lay man\'s victory at Circuit de la Sarthe.',
     category: 'Motorsport',
     vehicleType: 'Car',
     featured: true,
@@ -128,10 +128,10 @@ export const ARTICLES: Article[] = [
     historicalEra: '1991',
     seo: {
       canonicalPath: '/article/mazda-787b',
-      mainKeyword: 'Mazda 787B Le Mans analysis',
-      relatedKeywords: ['Mazda R26B quad-rotor rotary engine', 'Mazda 787B 1991 Le Mans victory'],
-      pageTitle: 'Mazda 787B Le Mans Analysis | Rev Talks',
-      metaDescription: 'Explore our Mazda 787B Le Mans analysis, covering the Mazda R26B quad-rotor rotary engine and the Mazda 787B 1991 Le Mans victory at Circuit de la Sarthe.',
+      mainKeyword: 'Mazda 787B lay mans analysis',
+      relatedKeywords: ['Mazda R26B called rotar rotary engine', "Mazda 787B 1991 lay man's victory"],
+      pageTitle: 'Mazda 787B Lay Mans Analysis | Rev Talks',
+      metaDescription: "Explore our Mazda 787B lay mans analysis, detailing the Mazda R26B called rotar rotary engine and the legendary Mazda 787B 1991 lay man's victory at Circuit de la Sarthe.",
     },
     tags: ['Wankel Rotary', 'Le Mans 24 Hours', 'R26B Quad-Rotor', 'Group C', 'Mazdaspeed'],
     keySpecs: [
@@ -141,7 +141,7 @@ export const ARTICLES: Article[] = [
       { label: 'Acoustic Signature', value: '118 dB @ full throttle' },
       { label: 'Total Distance', value: '4,922.8 km (362 laps)' }
     ],
-    excerpt: 'On June 23, 1991, against towering factory entries from Jaguar, Mercedes-Benz, and Porsche, Mazda’s naturally aspirated 4-rotor Wankel 787B became the first Japanese manufacturer to claim overall victory at the 24 Hours of Le Mans.',
+    excerpt: 'Explore our Mazda 787B lay mans analysis, detailing the Mazda R26B called rotar rotary engine and the legendary Mazda 787B 1991 lay man\'s victory at Le Mans.',
     sections: [
       {
         heading: 'What Made the Mazda 787B’s R26B Quad-Rotor Engine Unstoppable at Le Mans?',
@@ -202,8 +202,8 @@ export const ARTICLES: Article[] = [
     id: 'ducati-916-desmodromic-masterpiece',
     slug: 'ducati-916',
     aliases: ['ducati-916-massimo-tamburini-desmodromic-sculpture', 'ducati-916-desmodromic-masterpiece'],
-    title: 'The Bologna Sculpture: Massimo Tamburini’s Ducati 916',
-    subtitle: 'How a stroke-of-genius Italian superbike integrated Desmodromic valve actuation, underseat exhausts, and aerodynamic perfection in 1994.',
+    title: 'Ducati 916 Design History: Massimo Tamburini’s Desmodromic Sculpture',
+    subtitle: 'Discover Ducati 916 design history and explore how the Ducati 916 Desmodromic V twin engine helped define this iconic superbike across World Superbike racing.',
     category: 'Superbikes',
     vehicleType: 'Motorcycle',
     featured: true,
@@ -221,9 +221,9 @@ export const ARTICLES: Article[] = [
     seo: {
       canonicalPath: '/article/ducati-916',
       mainKeyword: 'Ducati 916 design history',
-      relatedKeywords: ['Ducati 916 design history', 'Ducati 916 desmodromic V-twin engine'],
+      relatedKeywords: ['Ducati 916 design history', 'Ducati 916 Desmodromic V twin engine'],
       pageTitle: 'Ducati 916 Design History | Rev Talks',
-      metaDescription: 'Discover Ducati 916 design history and explore how the Ducati 916 desmodromic V-twin engine helped define this iconic superbike across World Superbike racing.',
+      metaDescription: 'Discover Ducati 916 design history and explore how the Ducati 916 Desmodromic V twin engine helped define this iconic superbike across World Superbike racing.',
     },
     tags: ['Ducati', 'Desmodromic', 'Massimo Tamburini', 'World Superbike', 'Carl Fogarty'],
     keySpecs: [
@@ -233,7 +233,7 @@ export const ARTICLES: Article[] = [
       { label: 'Dry Weight', value: '195 kg (430 lbs)' },
       { label: 'Chassis', value: 'Steel Trellis + Cast Magnesium Subframe' }
     ],
-    excerpt: 'When the Ducati 916 broke cover at the 1993 Milan EICMA Show, it rendered every existing motorcycle visually and technically archaic overnight. Its combination of desmodromic valve control and structural compactness became an icon of industrial art.',
+    excerpt: 'Discover Ducati 916 design history and explore how the Ducati 916 Desmodromic V twin engine created an icon of modern motorcycle engineering and racing dominance.',
     sections: [
       {
         heading: 'Why Did the Ducati 916 Reshape Modern Superbike Chassis Geometry?',
