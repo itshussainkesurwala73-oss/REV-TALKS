@@ -12,6 +12,8 @@ import {
   Gauge,
   Zap,
   ArrowRight,
+  ExternalLink,
+  Compass,
 } from 'lucide-react';
 import { Article } from '../types/article';
 
@@ -96,6 +98,77 @@ export const ArticleView: React.FC<ArticleViewProps> = ({
 
   const handlePrint = () => {
     window.print();
+  };
+
+  // Helper to parse markdown-style links [Anchor Text](url) with high-quality SEO anchor text
+  const renderFormattedParagraph = (paragraph: string) => {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const elements: React.ReactNode[] = [];
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = linkRegex.exec(paragraph)) !== null) {
+      const [fullMatch, anchorText, url] = match;
+      const matchIndex = match.index;
+
+      if (matchIndex > lastIndex) {
+        elements.push(paragraph.substring(lastIndex, matchIndex));
+      }
+
+      const isExternal = url.startsWith('http://') || url.startsWith('https://');
+
+      if (isExternal) {
+        elements.push(
+          <a
+            key={`out-${matchIndex}`}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`${anchorText} (Opens official external archive in new tab)`}
+            className="inline-flex items-center gap-1 font-semibold text-red-600 dark:text-red-400 underline underline-offset-4 decoration-red-500/40 hover:decoration-red-600 dark:hover:decoration-red-300 hover:text-red-700 dark:hover:text-red-300 transition-colors"
+          >
+            <span>{anchorText}</span>
+            <ExternalLink className="w-3.5 h-3.5 opacity-70 shrink-0 inline" aria-hidden="true" />
+          </a>
+        );
+      } else {
+        // Internal link
+        const cleanTarget = url.replace(/^\/(article\/)?/, '');
+        const targetArticle = allArticles.find(
+          (a) => a.slug === cleanTarget || a.id === cleanTarget || a.aliases?.includes(cleanTarget)
+        );
+
+        elements.push(
+          <a
+            key={`in-${matchIndex}`}
+            href={url}
+            title={`Read internal treatise: ${anchorText}`}
+            onClick={(e) => {
+              if (targetArticle) {
+                e.preventDefault();
+                onSelectArticle(targetArticle);
+              } else {
+                // Category or other internal route
+                e.preventDefault();
+                window.history.pushState(null, '', url);
+                window.dispatchEvent(new PopStateEvent('popstate'));
+              }
+            }}
+            className="font-semibold text-red-600 dark:text-red-400 underline underline-offset-4 decoration-red-500/50 hover:decoration-red-600 hover:text-red-700 dark:hover:text-red-300 transition-colors cursor-pointer"
+          >
+            {anchorText}
+          </a>
+        );
+      }
+
+      lastIndex = matchIndex + fullMatch.length;
+    }
+
+    if (lastIndex < paragraph.length) {
+      elements.push(paragraph.substring(lastIndex));
+    }
+
+    return elements.length > 0 ? elements : paragraph;
   };
 
   // 2-3 Related articles
@@ -307,7 +380,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({
               <div className="space-y-5 text-zinc-800 dark:text-zinc-300 font-sans text-base sm:text-lg leading-relaxed">
                 {section.content.map((paragraph, pIdx) => (
                   <p key={pIdx}>
-                    {paragraph}
+                    {renderFormattedParagraph(paragraph)}
                   </p>
                 ))}
               </div>
@@ -336,6 +409,74 @@ export const ArticleView: React.FC<ArticleViewProps> = ({
             </section>
           ))}
         </div>
+
+        {/* Curated Cross-References & Outbound Technical Citations */}
+        {article.references && article.references.length > 0 && (
+          <section className="my-12 p-6 sm:p-7 rounded-xl bg-zinc-100/90 dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800 transition-colors">
+            <div className="flex items-center justify-between mb-5 pb-3 border-b border-zinc-200 dark:border-zinc-800">
+              <div className="flex items-center gap-2">
+                <Compass className="w-4 h-4 text-red-500" />
+                <h3 className="text-xs font-mono uppercase tracking-widest font-bold text-zinc-950 dark:text-white">
+                  Archival Citations & Cross-Referenced Treatises
+                </h3>
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                Verified Technical Sources
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {article.references.map((ref, rIdx) => {
+                const isOutbound = ref.type === 'outbound' || ref.url.startsWith('http');
+                const cleanTarget = ref.url.replace(/^\/(article\/)?/, '');
+                const targetArticle = !isOutbound
+                  ? allArticles.find((a) => a.slug === cleanTarget || a.id === cleanTarget || a.aliases?.includes(cleanTarget))
+                  : null;
+
+                return (
+                  <a
+                    key={rIdx}
+                    href={ref.url}
+                    target={isOutbound ? '_blank' : undefined}
+                    rel={isOutbound ? 'noopener noreferrer' : undefined}
+                    onClick={(e) => {
+                      if (!isOutbound) {
+                        e.preventDefault();
+                        if (targetArticle) {
+                          onSelectArticle(targetArticle);
+                        } else {
+                          window.history.pushState(null, '', ref.url);
+                          window.dispatchEvent(new PopStateEvent('popstate'));
+                        }
+                      }
+                    }}
+                    className="p-4 rounded-lg bg-white dark:bg-black/60 border border-zinc-200 dark:border-zinc-800/80 hover:border-red-500/50 transition-all group flex flex-col justify-between shadow-xs"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider mb-1.5 text-zinc-500 dark:text-zinc-400">
+                        <span className={isOutbound ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-red-600 dark:text-red-400 font-semibold'}>
+                          {isOutbound ? 'External Technical Archive' : 'Internal Rev Talks Dispatch'}
+                        </span>
+                        {isOutbound ? (
+                          <ExternalLink className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                        ) : (
+                          <ArrowRight className="w-3.5 h-3.5 text-red-500 group-hover:translate-x-1 transition-transform shrink-0" />
+                        )}
+                      </div>
+                      <div className="font-display text-sm font-bold text-zinc-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                        {ref.label}
+                      </div>
+                      {ref.description && (
+                        <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1.5 line-clamp-2 leading-relaxed">
+                          {ref.description}
+                        </p>
+                      )}
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         {/* Tags Footnote */}
         <div className="pt-6 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400 mb-12">

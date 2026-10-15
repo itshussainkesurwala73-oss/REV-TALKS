@@ -25,6 +25,13 @@ export interface PageSEO {
   canonicalPath: string;
 }
 
+export interface ArticleReference {
+  type: 'internal' | 'outbound';
+  label: string;
+  url: string;
+  description?: string;
+}
+
 export interface Article {
   id: string;
   slug: string;
@@ -50,6 +57,7 @@ export interface Article {
   featured?: boolean;
   aliases?: string[];
   seo?: PageSEO;
+  references?: ArticleReference[];
 }
 
 export interface ContactFormData {
