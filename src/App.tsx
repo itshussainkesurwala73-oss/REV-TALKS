@@ -91,7 +91,7 @@ export default function App() {
     });
   };
 
-  // Comprehensive URL Router (Pathname + Hash + PopState + Browser Back/Forward)
+  // Comprehensive Clean URL Router (Clean, Short, Simple URLs + Aliases + History Sync)
   useEffect(() => {
     const parseUrl = () => {
       // Automatically scrub any -7ov5 artifacts from URL address bar
@@ -107,6 +107,7 @@ export default function App() {
 
       const rawPath = window.location.pathname.toLowerCase().replace(/-7ov5/g, '').replace(/^\/+|\/+$/g, '');
       const rawHash = window.location.hash.toLowerCase().replace(/-7ov5/g, '').replace(/^#\/?/, '');
+      const routePath = rawPath || rawHash;
 
       // Helper category map
       const categoryMap: Record<string, Category> = {
@@ -117,81 +118,135 @@ export default function App() {
         heritage: 'Heritage',
       };
 
-      // 1. Article view: /article/:slug or #article/:slug
+      // Helper function to find article by slug, id, or alias
+      const findArticle = (slugOrAlias: string) => {
+        const needle = slugOrAlias.toLowerCase();
+        return ARTICLES.find(
+          (a) =>
+            a.slug.toLowerCase() === needle ||
+            a.id.toLowerCase() === needle ||
+            (a.aliases && a.aliases.some((alias) => alias.toLowerCase() === needle))
+        );
+      };
+
+      // 1. Article view with '/article/:slug'
       let articleSlug = '';
-      if (rawPath.startsWith('article/')) {
-        articleSlug = rawPath.replace('article/', '');
-      } else if (rawHash.startsWith('article/')) {
-        articleSlug = rawHash.replace('article/', '');
+      if (routePath.startsWith('article/')) {
+        articleSlug = routePath.replace('article/', '');
       }
 
       if (articleSlug) {
-        const found = ARTICLES.find((a) => a.slug.toLowerCase() === articleSlug);
+        const found = findArticle(articleSlug);
         if (found) {
           setSelectedArticle(found);
           setCurrentView('article');
-          updatePageMetadata(getArticleSEO(found), found);
+          const seo = getArticleSEO(found);
+          // If accessing via old long slug or alias, normalize address bar to clean short canonical URL
+          if (window.location.pathname !== seo.canonicalPath) {
+            try {
+              window.history.replaceState(null, '', seo.canonicalPath);
+            } catch {}
+          }
+          updatePageMetadata(seo, found);
           return;
         }
       }
 
-      // 2. Contact view: /contact or #contact
-      if (rawPath === 'contact' || rawHash === 'contact') {
+      // 2. Direct clean short article slug (e.g. /mclaren-f1, /mazda-787b, /ducati-916)
+      if (routePath && routePath !== 'contact' && !categoryMap[routePath] && routePath !== 'cars' && routePath !== 'motorcycles' && routePath !== 'bikes') {
+        const directFound = findArticle(routePath);
+        if (directFound) {
+          setSelectedArticle(directFound);
+          setCurrentView('article');
+          const seo = getArticleSEO(directFound);
+          if (window.location.pathname !== seo.canonicalPath) {
+            try {
+              window.history.replaceState(null, '', seo.canonicalPath);
+            } catch {}
+          }
+          updatePageMetadata(seo, directFound);
+          return;
+        }
+      }
+
+      // 3. Contact view: /contact
+      if (routePath === 'contact') {
         setCurrentView('contact');
         setSelectedArticle(null);
+        if (window.location.pathname !== '/contact') {
+          try {
+            window.history.replaceState(null, '', '/contact');
+          } catch {}
+        }
         updatePageMetadata(STATIC_PAGE_SEO['contact']);
         return;
       }
 
-      // 3. Category / Vehicle type: /category/:slug or /vehicles/:type
-      let catSlug = '';
-      if (rawPath.startsWith('category/')) {
-        catSlug = rawPath.replace('category/', '');
-      } else if (rawPath.startsWith('vehicles/')) {
-        catSlug = rawPath.replace('vehicles/', '');
-      } else if (rawHash.startsWith('category/')) {
-        catSlug = rawHash.replace('category/', '');
-      } else if (rawHash.startsWith('vehicles/')) {
-        catSlug = rawHash.replace('vehicles/', '');
-      } else if (rawHash.startsWith('type/')) {
-        catSlug = rawHash.replace('type/', '');
+      // 4. Vehicles filter: /cars or /motorcycles (also supports legacy /vehicles/:type)
+      const isCar = routePath === 'cars' || routePath === 'car' || routePath === 'vehicles/cars' || routePath === 'vehicles/car';
+      const isBike = routePath === 'motorcycles' || routePath === 'motorcycle' || routePath === 'bikes' || routePath === 'vehicles/motorcycles' || routePath === 'vehicles/motorcycle';
+
+      if (isCar) {
+        setActiveVehicleType('Car');
+        setActiveCategory('All');
+        setCurrentView('home');
+        setSelectedArticle(null);
+        if (window.location.pathname !== '/cars') {
+          try {
+            window.history.replaceState(null, '', '/cars');
+          } catch {}
+        }
+        updatePageMetadata(STATIC_PAGE_SEO['vehicles-cars']);
+        return;
       }
 
-      if (catSlug) {
-        if (catSlug === 'car' || catSlug === 'cars') {
-          setActiveVehicleType('Car');
-          setActiveCategory('All');
-          setCurrentView('home');
-          setSelectedArticle(null);
-          updatePageMetadata(STATIC_PAGE_SEO['vehicles-cars']);
-          return;
+      if (isBike) {
+        setActiveVehicleType('Motorcycle');
+        setActiveCategory('All');
+        setCurrentView('home');
+        setSelectedArticle(null);
+        if (window.location.pathname !== '/motorcycles') {
+          try {
+            window.history.replaceState(null, '', '/motorcycles');
+          } catch {}
         }
-        if (catSlug === 'motorcycle' || catSlug === 'motorcycles' || catSlug === 'bikes') {
-          setActiveVehicleType('Motorcycle');
-          setActiveCategory('All');
-          setCurrentView('home');
-          setSelectedArticle(null);
-          updatePageMetadata(STATIC_PAGE_SEO['vehicles-motorcycles']);
-          return;
-        }
-        if (categoryMap[catSlug]) {
-          const mappedCat = categoryMap[catSlug];
-          setActiveCategory(mappedCat);
-          setActiveVehicleType('All');
-          setCurrentView('home');
-          setSelectedArticle(null);
-          const catSeo = STATIC_PAGE_SEO[`category-${catSlug}`] || STATIC_PAGE_SEO['home'];
-          updatePageMetadata(catSeo);
-          return;
-        }
+        updatePageMetadata(STATIC_PAGE_SEO['vehicles-motorcycles']);
+        return;
       }
 
-      // 4. Default Home view
+      // 5. Category filter: /supercars, /superbikes, /motorsport, /engineering, /heritage (also supports /category/:name)
+      let catKey = routePath;
+      if (catKey.startsWith('category/')) {
+        catKey = catKey.replace('category/', '');
+      }
+
+      if (categoryMap[catKey]) {
+        const mappedCat = categoryMap[catKey];
+        setActiveCategory(mappedCat);
+        setActiveVehicleType('All');
+        setCurrentView('home');
+        setSelectedArticle(null);
+        const catSeo = STATIC_PAGE_SEO[`category-${catKey}`] || STATIC_PAGE_SEO['home'];
+        if (window.location.pathname !== catSeo.canonicalPath) {
+          try {
+            window.history.replaceState(null, '', catSeo.canonicalPath);
+          } catch {}
+        }
+        updatePageMetadata(catSeo);
+        return;
+      }
+
+      // 6. Default Home view: /
       setCurrentView('home');
       setSelectedArticle(null);
-      if (rawPath === '' && (rawHash === '' || rawHash === 'home')) {
+      if (routePath === '' || routePath === 'home') {
         setActiveCategory('All');
         setActiveVehicleType('All');
+      }
+      if (window.location.pathname !== '/' && (routePath === '' || routePath === 'home')) {
+        try {
+          window.history.replaceState(null, '', '/');
+        } catch {}
       }
       updatePageMetadata(STATIC_PAGE_SEO['home']);
     };

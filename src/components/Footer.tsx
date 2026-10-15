@@ -73,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-2 text-sm font-mono">
               <li>
                 <a
-                  href="/category/supercars"
+                  href="/supercars"
                   onClick={(e) => {
                     e.preventDefault();
                     onSelectVehicleType('Car');
@@ -85,7 +85,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a
-                  href="/category/superbikes"
+                  href="/superbikes"
                   onClick={(e) => {
                     e.preventDefault();
                     onSelectVehicleType('Motorcycle');
@@ -97,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a
-                  href="/category/motorsport"
+                  href="/motorsport"
                   onClick={(e) => {
                     e.preventDefault();
                     onSelectCategory('Motorsport');
@@ -109,7 +109,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a
-                  href="/category/engineering"
+                  href="/engineering"
                   onClick={(e) => {
                     e.preventDefault();
                     onSelectCategory('Engineering');

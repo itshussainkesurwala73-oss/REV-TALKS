@@ -48,6 +48,7 @@ export interface Article {
   tags: string[];
   historicalEra: string;
   featured?: boolean;
+  aliases?: string[];
   seo?: PageSEO;
 }
 

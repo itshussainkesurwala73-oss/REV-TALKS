@@ -15,7 +15,8 @@ import kawasakiH2Img from '../assets/images/apex_kawasaki_h2r_1791384864209.jpg'
 export const ARTICLES: Article[] = [
   {
     id: 'mclaren-f1-purity',
-    slug: 'mclaren-f1-gordon-murray-atmospheric-purity',
+    slug: 'mclaren-f1',
+    aliases: ['mclaren-f1-gordon-murray-atmospheric-purity', 'mclaren-f1-purity'],
     title: 'The Unrepeatable Zenith: Gordon Murray’s McLaren F1',
     subtitle: 'Why three decades later, no hypercar has ever equaled the analog clarity of chassis XP5 at 240.1 mph.',
     category: 'Supercars',
@@ -33,7 +34,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Technical Collection',
     historicalEra: '1992–1998',
     seo: {
-      canonicalPath: '/article/mclaren-f1-gordon-murray-atmospheric-purity',
+      canonicalPath: '/article/mclaren-f1',
       mainKeyword: 'McLaren F1 engineering review',
       relatedKeywords: ['BMW S70/2 V12 engine', 'McLaren F1 carbon-fibre monocoque chassis'],
       pageTitle: 'McLaren F1 Engineering Review | Rev Talks',
@@ -81,7 +82,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'mazda-787b-rotary-triumph',
-    slug: 'mazda-787b-quad-rotor-le-mans-conquest',
+    slug: 'mazda-787b',
+    aliases: ['mazda-787b-quad-rotor-le-mans-conquest', 'mazda-787b-rotary-triumph'],
     title: 'The Screaming Rotor: How Mazda’s 787B Silenced Le Mans',
     subtitle: 'The engineering audacity of the 700-hp R26B engine and Japan’s first overall victory at Circuit de la Sarthe in 1991.',
     category: 'Motorsport',
@@ -99,7 +101,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Le Mans Archive',
     historicalEra: '1991',
     seo: {
-      canonicalPath: '/article/mazda-787b-quad-rotor-le-mans-conquest',
+      canonicalPath: '/article/mazda-787b',
       mainKeyword: 'Mazda 787B Le Mans analysis',
       relatedKeywords: ['Mazda R26B quad-rotor rotary engine', 'Mazda 787B 1991 Le Mans victory'],
       pageTitle: 'Mazda 787B Le Mans Analysis | Rev Talks',
@@ -146,7 +148,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'ducati-916-desmodromic-masterpiece',
-    slug: 'ducati-916-massimo-tamburini-desmodromic-sculpture',
+    slug: 'ducati-916',
+    aliases: ['ducati-916-massimo-tamburini-desmodromic-sculpture', 'ducati-916-desmodromic-masterpiece'],
     title: 'The Bologna Sculpture: Massimo Tamburini’s Ducati 916',
     subtitle: 'How a stroke-of-genius Italian superbike integrated Desmodromic valve actuation, underseat exhausts, and aerodynamic perfection in 1994.',
     category: 'Superbikes',
@@ -164,7 +167,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Italian Archive',
     historicalEra: '1994–1998',
     seo: {
-      canonicalPath: '/article/ducati-916-massimo-tamburini-desmodromic-sculpture',
+      canonicalPath: '/article/ducati-916',
       mainKeyword: 'Ducati 916 design history',
       relatedKeywords: ['Ducati 916 design history', 'Ducati 916 desmodromic V-twin engine'],
       pageTitle: 'Ducati 916 Design History | Rev Talks',
@@ -211,7 +214,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'porsche-993-air-cooled-twilight',
-    slug: 'porsche-993-air-cooled-flat-six-twilight',
+    slug: 'porsche-993',
+    aliases: ['porsche-993-air-cooled-flat-six-twilight', 'porsche-993-air-cooled-twilight'],
     title: 'The Final Whisper of Air: Porsche 911 Type 993',
     subtitle: 'Examining the mechanical zenith of the Mezger-derived air-cooled flat-six before the water-cooled transition.',
     category: 'Heritage',
@@ -229,7 +233,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Alpine Expedition',
     historicalEra: '1994–1998',
     seo: {
-      canonicalPath: '/article/porsche-993-air-cooled-flat-six-twilight',
+      canonicalPath: '/article/porsche-993',
       mainKeyword: 'Porsche 993 air cooled guide',
       relatedKeywords: ['Hans Mezger flat six engine', 'Weissach multi link suspension'],
       pageTitle: 'Porsche 993 Technical Guide: Air-Cooled Flat-Six Zenith | Rev Talks',
@@ -272,7 +276,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'yamaha-rd350-two-stroke-cult',
-    slug: 'yamaha-rd350-the-giant-killing-two-stroke-cult',
+    slug: 'yamaha-rd350',
+    aliases: ['yamaha-rd350-the-giant-killing-two-stroke-cult', 'yamaha-rd350-two-stroke-cult'],
     title: 'The Giant Killer: Yamaha RD350 & Expansion Chamber Sorcery',
     subtitle: 'How an affordable 347cc twin-cylinder two-stroke embarrassed four-stroke 750cc superbikes on every twisty backroad in 1973.',
     category: 'Heritage',
@@ -290,7 +295,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Vintage Vault',
     historicalEra: '1973–1979',
     seo: {
-      canonicalPath: '/article/yamaha-rd350-the-giant-killing-two-stroke-cult',
+      canonicalPath: '/article/yamaha-rd350',
       mainKeyword: 'Yamaha RD350 technical review',
       relatedKeywords: ['two stroke expansion chambers', 'torque induction reed valves'],
       pageTitle: 'Yamaha RD350 Technical Review: Two-Stroke Giant Killer | Rev Talks',
@@ -335,7 +340,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'koenigsegg-jesko-lst-transmission',
-    slug: 'koenigsegg-jesko-light-speed-transmission-physics',
+    slug: 'koenigsegg-jesko',
+    aliases: ['koenigsegg-jesko-light-speed-transmission-physics', 'koenigsegg-jesko-lst-transmission'],
     title: 'Rewriting Gearbox Physics: Koenigsegg’s Light Speed Transmission',
     subtitle: 'Inside Christian von Koenigsegg’s 9-speed, 7-clutch transmission that shifts gears at the speed of light with zero flywheel latency.',
     category: 'Engineering',
@@ -353,7 +359,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Koenigsegg Automotive AB Engineering Archive',
     historicalEra: '2020–Present',
     seo: {
-      canonicalPath: '/article/koenigsegg-jesko-light-speed-transmission-physics',
+      canonicalPath: '/article/koenigsegg-jesko',
       mainKeyword: 'Koenigsegg Jesko LST transmission',
       relatedKeywords: ['9 speed multi clutch gearbox', 'hypercar shift latency engineering'],
       pageTitle: 'Koenigsegg Jesko LST Transmission & Powertrain Physics | Rev Talks',
@@ -395,7 +401,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'honda-cb750-superbike-revolution',
-    slug: 'honda-cb750-1969-birth-of-the-modern-superbike',
+    slug: 'honda-cb750',
+    aliases: ['honda-cb750-1969-birth-of-the-modern-superbike', 'honda-cb750-superbike-revolution'],
     title: 'The Blueprint: 1969 Honda CB750 and the Superbike Dawn',
     subtitle: 'How Soichiro Honda’s transverse four-cylinder, disc-braked marvel permanently ended the reign of the British motorcycle industry.',
     category: 'Heritage',
@@ -413,7 +420,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Motoring Heritage',
     historicalEra: '1969–1978',
     seo: {
-      canonicalPath: '/article/honda-cb750-1969-birth-of-the-modern-superbike',
+      canonicalPath: '/article/honda-cb750',
       mainKeyword: 'Honda CB750 Four history',
       relatedKeywords: ['first modern superbike', 'transverse inline four motorcycle'],
       pageTitle: '1969 Honda CB750 Four History: Superbike Dawn | Rev Talks',
@@ -458,7 +465,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'ev-carbon-sleeved-rotors',
-    slug: 'carbon-sleeved-rotors-20000-rpm-ev-powertrains',
+    slug: 'ev-powertrains',
+    aliases: ['carbon-sleeved-rotors-20000-rpm-ev-powertrains', 'ev-carbon-sleeved-rotors'],
     title: 'Centrifugal Restraint: Carbon-Sleeved Rotors at 20,000 RPM',
     subtitle: 'The physics of wrapping permanent magnet electric motor rotors in carbon fiber to conquer copper eddy currents and centrifugal explosion.',
     category: 'Engineering',
@@ -476,7 +484,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Advanced Powertrain Lab',
     historicalEra: '2021–Present',
     seo: {
-      canonicalPath: '/article/carbon-sleeved-rotors-20000-rpm-ev-powertrains',
+      canonicalPath: '/article/ev-powertrains',
       mainKeyword: 'carbon sleeved EV rotor physics',
       relatedKeywords: ['20000 rpm electric motor', 'permanent magnet centrifugal restraint'],
       pageTitle: 'Carbon-Sleeved EV Rotors: 20,000 RPM Physics | Rev Talks',
@@ -518,7 +526,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'bmw-e30-m3-dtm-homologation',
-    slug: 'bmw-e30-m3-group-a-dtm-homologation-legend',
+    slug: 'bmw-m3-e30',
+    aliases: ['bmw-e30-m3-group-a-dtm-homologation-legend', 'bmw-e30-m3-dtm-homologation'],
     title: 'Born for Touring: The BMW E30 M3 Homologation Story',
     subtitle: 'Paul Rosche’s 16-valve S14 four-cylinder, boxed flared fenders, and why the original M3 had only two body panels in common with standard 3-Series cars.',
     category: 'Motorsport',
@@ -536,7 +545,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Historic Motorsport Division',
     historicalEra: '1986–1991',
     seo: {
-      canonicalPath: '/article/bmw-e30-m3-group-a-dtm-homologation-legend',
+      canonicalPath: '/article/bmw-m3-e30',
       mainKeyword: 'BMW E30 M3 homologation history',
       relatedKeywords: ['Paul Rosche S14 engine', 'Group A touring car regulations'],
       pageTitle: 'BMW E30 M3 Homologation History & S14 Engine | Rev Talks',
@@ -581,7 +590,8 @@ export const ARTICLES: Article[] = [
   },
   {
     id: 'kawasaki-ninja-h2-supercharged',
-    slug: 'kawasaki-ninja-h2-aerospace-centrifugal-supercharger',
+    slug: 'kawasaki-ninja-h2',
+    aliases: ['kawasaki-ninja-h2-aerospace-centrifugal-supercharger', 'kawasaki-ninja-h2-supercharged', 'kawasaki-h2r'],
     title: 'Aerospace Induction: Kawasaki Ninja H2 & The 130,000 RPM Impeller',
     subtitle: 'How Kawasaki Heavy Industries pooled aerospace, gas turbine, and marine divisions to build the first factory-supercharged hypersport motorcycle.',
     category: 'Superbikes',
@@ -599,7 +609,7 @@ export const ARTICLES: Article[] = [
     photographerCredit: 'Rev Talks Technical Photography',
     historicalEra: '2015–Present',
     seo: {
-      canonicalPath: '/article/kawasaki-ninja-h2-aerospace-centrifugal-supercharger',
+      canonicalPath: '/article/kawasaki-ninja-h2',
       mainKeyword: 'Kawasaki Ninja H2 supercharger specs',
       relatedKeywords: ['130000 rpm billet impeller', 'centrifugal supercharged motorcycle'],
       pageTitle: 'Kawasaki Ninja H2 Supercharger Specs & Aerodynamics | Rev Talks',

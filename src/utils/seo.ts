@@ -18,9 +18,9 @@ export const STATIC_PAGE_SEO: Record<string, PageSEO> = {
     metaDescription: 'Explore automotive engineering articles, supercar and superbike history, and in-depth stories on performance, technology, and automotive heritage.',
   },
 
-  // Category Pages
+  // Category Pages (Clean, short, simple URLs)
   'category-supercars': {
-    canonicalPath: '/category/supercars',
+    canonicalPath: '/supercars',
     mainKeyword: 'analog supercars',
     relatedKeywords: ['naturally aspirated hypercars', 'lightweight supercar engineering'],
     pageTitle: 'Supercars & Hypercars Engineering Dispatches | Rev Talks',
@@ -28,7 +28,7 @@ export const STATIC_PAGE_SEO: Record<string, PageSEO> = {
   },
 
   'category-superbikes': {
-    canonicalPath: '/category/superbikes',
+    canonicalPath: '/superbikes',
     mainKeyword: 'superbike engineering',
     relatedKeywords: ['historic racing motorcycles', 'analog sportbikes'],
     pageTitle: 'Superbike History & High-Revving Motorcycle Reads | Rev Talks',
@@ -36,7 +36,7 @@ export const STATIC_PAGE_SEO: Record<string, PageSEO> = {
   },
 
   'category-motorsport': {
-    canonicalPath: '/category/motorsport',
+    canonicalPath: '/motorsport',
     mainKeyword: 'motorsport homologation',
     relatedKeywords: ['Le Mans racing history', 'Group A touring cars'],
     pageTitle: 'Motorsport Homologations & Historic Racing Cars | Rev Talks',
@@ -44,7 +44,7 @@ export const STATIC_PAGE_SEO: Record<string, PageSEO> = {
   },
 
   'category-engineering': {
-    canonicalPath: '/category/engineering',
+    canonicalPath: '/engineering',
     mainKeyword: 'automotive powertrain engineering',
     relatedKeywords: ['carbon chassis dynamics', 'analog vehicle telemetry'],
     pageTitle: 'Automotive Powertrain & Chassis Engineering | Rev Talks',
@@ -52,16 +52,16 @@ export const STATIC_PAGE_SEO: Record<string, PageSEO> = {
   },
 
   'category-heritage': {
-    canonicalPath: '/category/heritage',
+    canonicalPath: '/heritage',
     mainKeyword: 'classic sports car history',
     relatedKeywords: ['vintage air-cooled classics', 'golden era homologations'],
     pageTitle: 'Automotive Heritage & Classic Sports Car Legends | Rev Talks',
     metaDescription: 'Journey through the golden eras of automotive design. Read technical memoirs on air-cooled icons, two-stroke legends, and motorsport milestones.',
   },
 
-  // Vehicle Class Pages
+  // Vehicle Class Pages (Clean, short, simple URLs)
   'vehicles-cars': {
-    canonicalPath: '/vehicles/cars',
+    canonicalPath: '/cars',
     mainKeyword: 'supercar technical reviews',
     relatedKeywords: ['GT road cars', 'homologation sports cars'],
     pageTitle: 'Supercars & GT Road Cars: Technical Treatises | Rev Talks',
@@ -69,7 +69,7 @@ export const STATIC_PAGE_SEO: Record<string, PageSEO> = {
   },
 
   'vehicles-motorcycles': {
-    canonicalPath: '/vehicles/motorcycles',
+    canonicalPath: '/motorcycles',
     mainKeyword: 'superbike technical reviews',
     relatedKeywords: ['two-stroke sportbikes', 'high performance motorcycles'],
     pageTitle: 'Superbikes & Two-Stroke Motorcycles: In-Depth Reviews | Rev Talks',

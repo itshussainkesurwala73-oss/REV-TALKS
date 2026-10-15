@@ -107,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
 
             <a
-              href="/category/supercars"
+              href="/supercars"
               onClick={(e) => {
                 e.preventDefault();
                 onSelectVehicleType('Car');
@@ -122,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
 
             <a
-              href="/category/superbikes"
+              href="/superbikes"
               onClick={(e) => {
                 e.preventDefault();
                 onSelectVehicleType('Motorcycle');
@@ -137,7 +137,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
 
             <a
-              href="/category/motorsport"
+              href="/motorsport"
               onClick={(e) => {
                 e.preventDefault();
                 onSelectCategory('Motorsport');
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
 
             <a
-              href="/category/engineering"
+              href="/engineering"
               onClick={(e) => {
                 e.preventDefault();
                 onSelectCategory('Engineering');
